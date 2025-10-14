@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+
+.instrument{
+font-family: "instrument-serif", sans-serif;
+font-weight: 100;
+font-style: normal;
+
+}
+.italic{
+font-family: "instrument-serif", sans-serif;
+font-weight: 100;
+font-style: italic;
+
+}
+
+.start{
+    font-family: "dm-sans", sans-serif;
+font-weight: 600;
+font-style: normal;
+}
+
+.geist{
+    font-family: "Geist", sans-serif;
+
+  font-weight: 400;
+  font-style: normal;
+}
