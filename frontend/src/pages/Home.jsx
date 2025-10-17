@@ -3,21 +3,7 @@ import Navbar from "../components/Navbar";
 import TiltCard from "../components/Scroll";
 import { Card1,StyledCard,CheckDiseaseCard,VideoCallCard } from "../components/cards";
 import Footer from "../components/Footer";
-// const query = async (data) => {
-//   const response = await fetch(
-//     "https://api-inference.huggingface.co/models/bionlp/bluebert_pubmed_mimic_uncased_L-12_H-768_A-12",
-//     {
-//       headers: { Authorization: "Bearer YOUR_HF_API_TOKEN" },
-//       method: "POST",
-//       body: JSON.stringify(data),
-//     }
-//   );
-//   return await response.json();
-// };
 
-// query({ inputs: "patient has fever and cough" }).then((response) => {
-//   console.log(response);
-// });
 
 export default function Home() {
     return (<>
