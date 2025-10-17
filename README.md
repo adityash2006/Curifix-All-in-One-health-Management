@@ -83,3 +83,35 @@ Users are encouraged to consult certified doctors for expert medical advice.
 
 ### 💬 Tagline  
 *"CuriFix – AI that cares, not replaces."*
+
+### Project Setup
+
+**Backend Setup**
+```bash
+# Clone repository
+git clone https://github.com/adityash2006/Curifix-All-in-One-health-Management.git
+
+Backend
+cd backend
+
+# Install dependencies
+npm install
+
+# Create .env add these two fields
+#   MONGODB_URI=mongodb://localhost:27017/curifix
+#   GOOGLE_API_KEY=sample gemini api key
+
+# Start development server
+node server.js
+
+Frontend
+
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
