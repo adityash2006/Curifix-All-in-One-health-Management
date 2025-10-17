@@ -24,7 +24,7 @@ export default function Home() {
     <Navbar></Navbar>
         <div className=" flex flex-col items-center pt-25  min-h-screen/2 bg-white">
             <h1 className="instrument text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight inline text-[#303030] text-center">Your Personal AI </h1>
-                        <h1 className="iinstrument text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tighter inline text-[#303030] text-center"> Health Companion<span className="text-4xl sm:text-5xl lg:text-7xl italic px-2 sm:px-4 rounded-lg bg-[rgb(233,255,91)] ml-2 sm:ml-4 whitespace-nowrap">Curifix</span></h1>
+                        <h1 className="instrument text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tighter inline text-[#303030] text-center"> Health Companion<span className="text-4xl sm:text-5xl lg:text-7xl italic px-2 sm:px-4 rounded-lg bg-[rgb(233,255,91)] ml-2 sm:ml-4 whitespace-nowrap">Curifix</span></h1>
 <span className="mt-8 md:mt-10 w-full max-w-lg md:w-[35%] text-center text-[#999999] px-2 text-sm sm:text-base">
            From tracking symptoms to storing reports and finding nearby clinics, Curifix keeps your healthcare simple, smart, and accessible </span>
           <div className="space-x-5 mb-20"> <button class="mt-10 bg-[#a6Ff8D] text-black font-semibold px-6 py-2 
