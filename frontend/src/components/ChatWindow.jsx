@@ -10,32 +10,40 @@ export default function ChatWindow() {
   const [loading,setloading]=useState(false);
     const [fetchCount, setFetchCount] = useState(0);
 
-  const getreply=async ()=>{
+  const getreply = async () => {
+    // Prevent empty or whitespace-only messages
+    if (!prompt.trim()) {
+      console.warn("Cannot send empty message");
+      return;
+    }
+
     setNewChat(false);
     setloading(true);
-    const options={
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify({
-        message:prompt,
-        threadId:currthreadid
-      })
+      body: JSON.stringify({
+        message: prompt,
+        threadId: currthreadid,
+      }),
     };
+
     try {
       console.log("req is hit ig");
-      let response=await fetch ("http://localhost:3000/api/chat",options);
-      let g=await response.json();
+      let response = await fetch("http://localhost:3000/api/chat", options);
+      let g = await response.json();
       console.log(g.reply);
       setReply(g.reply);
       setFetchCount(fetchCount + 1);
-      
     } catch (error) {
-      console.log("some error in fetching",error);
+      console.log("some error in fetching", error);
     }
+
     setloading(false);
-  }
+  };
 
   useEffect(() => {
     if(prevChats.length===0 && prompt ){
@@ -88,8 +96,14 @@ export default function ChatWindow() {
       <div className="chatinput">
         <div className="text-center relative">
           <input value={prompt} onKeyDown={(e)=>{if(e.key==="Enter"){getreply()}}} onChange={(e)=>setPrompt(e.target.value)} className="text-lg rounded-[4rem] p-4 pl-6 pr-17 mb-5 w-[70%] bg-white text-black focus:outline-none focus:ring-[0.2px]  shadow-md shadow-black-700" type="text" placeholder="Enter your Symptom" name="" id="" />
-         <button onClick={getreply}> <i className="absolute right-[17.5%]  text-green-900 hover:text-green-700 cursor-pointer top-7.5 transform -translate-y-1/2 fa-solid fa-paper-plane"></i>
-         </button><ScaleLoader color="black" loading={loading}>
+         <button 
+            onClick={getreply} 
+            disabled={!prompt.trim()} 
+            className={!prompt.trim() ? "opacity-50 cursor-not-allowed" : ""}
+          >
+            <i className="absolute right-[17.5%] text-green-900 hover:text-green-700 cursor-pointer top-7.5 transform -translate-y-1/2 fa-solid fa-paper-plane"></i>
+          </button>
+         <ScaleLoader color="black" loading={loading}>
         </ScaleLoader>
         </div>
         <div>

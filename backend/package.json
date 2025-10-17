@@ -1,1 +1,1 @@
-{"type":"module","dependencies":{"@langchain/google-genai":"^0.2.16","cors":"^2.8.5","dotenv":"^17.2.1","express":"^5.1.0","mongoose":"^8.17.1","nodemon":"^3.1.10"}}
+{"type":"module","dependencies":{"@langchain/google-genai":"^0.2.18","cors":"^2.8.5","dotenv":"^17.2.1","express":"^5.1.0","mongoose":"^8.17.1","nodemon":"^3.1.10"}}
