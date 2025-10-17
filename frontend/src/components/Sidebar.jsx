@@ -79,8 +79,8 @@ export default function Sidebar() {
     <>
       <div className="relative  side w-85  bg-white h-screen">
         <div className="pr-6 pl-3 py-6 flex justify-between">
-          <i className="text-xl text-gray-700 hover:text-gray-900 transition duration-300 fa-solid fa-briefcase-medical"></i>
-          <i className="text-xl text-gray-700 hover:text-gray-900 transition duration-300 fa-solid fa-pen-to-square"></i>
+          <i className="text-xl text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300 fa-solid fa-briefcase-medical"></i>
+          <i className="text-xl text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300 fa-solid fa-pen-to-square"></i>
         </div>
         <div className="mb-5 mx-5 flex justify-center items-center text-center text-black border-1 cursor-pointer rounded-lg border-white  hover:border-black">
           <button className="cursor-pointer w-full " onClick={newcha}>
