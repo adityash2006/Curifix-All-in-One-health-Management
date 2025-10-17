@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import TiltCard from "../components/Scroll";
-import { Card1,StyledCard,CheckDiseaseCard,VideoCallCard } from "../components/cards";
+import {
+  Card1,
+  StyledCard,
+  CheckDiseaseCard,
+  VideoCallCard,
+} from "../components/cards";
 import Footer from "../components/Footer";
 // const query = async (data) => {
 //   const response = await fetch(
@@ -20,61 +25,86 @@ import Footer from "../components/Footer";
 // });
 
 export default function Home() {
-    return (<>
-    <Navbar></Navbar>
-        <div className=" flex flex-col items-center pt-25  min-h-screen/2 bg-white">
-            <h1 className="instrument text-7xl font-bold tracking-tighter text-[#303030] mb-4">Your Personal AI </h1>
-                        <h1 className="instrument text-7xl font-bold tracking-tighter inline text-[#303030] "> Health Companion<span className="text-7xl italic px-4 rounded-lg bg-[rgb(233,255,91)] ml-4">Curifix</span></h1>
-<span className="mt-10 md:w-[35%] text-center text-[#999999]">
-           From tracking symptoms to storing reports and finding nearby clinics, Curifix keeps your healthcare simple, smart, and accessible </span>
-          <div className="space-x-5 mb-20"> <button class="mt-10 bg-[#a6Ff8D] text-black font-semibold px-6 py-2 
-  rounded-[15px] border-solid border-[#BEcf4c] 
-  border-t-[2px] hover:bg-[#D4FF3D] cursor-pointer border-r-[2px] border-l-[2px] border-b-[4px] opacity-100">
-  Get Started
-</button>
-<button class="cursor-pointer bg-[#F5F5EB] text-black font-semibold px-6 py-2 
-  rounded-[15px] opacity-100 border-solid border-[#BEcf4c] 
-  border-t-[2px] hover:bg-[#D4D4D4] border-r-[2px] border-l-[2px] border-b-[4px]">
-  Explore
-</button>
-{/* <TiltCard /> */}
-</div>
+  return (
+    <>
+      <Navbar></Navbar>
+      <div className="flex flex-col items-center justify-center pt-12 md:pt-20 lg:pt-25 min-h-screen bg-white px-4 md:px-8">
+        <div className="w-full flex flex-col items-center justify-center mb-12 md:mb-16">
+          <h1
+            className="instrument font-bold tracking-tighter text-[#303030] text-center mb-2"
+            style={{ fontSize: "clamp(2rem, 10vw, 5rem)" }}
+          >
+            Your Personal AI
+          </h1>
+          <div className="flex flex-row items-center justify-center gap-2 md:gap-4 flex-wrap">
+            <h1
+              className="instrument font-bold tracking-tighter text-[#303030]"
+              style={{ fontSize: "clamp(2rem, 10vw, 5rem)" }}
+            >
+              Health Companion
+            </h1>
+            <span
+              className="italic px-3 sm:px-4 rounded-lg bg-[rgb(233,255,91)] text-[#303030]"
+              style={{ fontSize: "clamp(2rem, 10vw, 5rem)" }}
+            >
+              Curifix
+            </span>
+          </div>
+        </div>
+        <span className="mt-6 md:mt-10 w-full sm:w-[80%] md:w-[60%] lg:w-[35%] text-center text-sm md:text-base text-[#999999]">
+          From tracking symptoms to storing reports and finding nearby clinics,
+          Curifix keeps your healthcare simple, smart, and accessible{" "}
+        </span>
+        <div className="space-x-5 mb-20">
+          {" "}
+          <button
+            class="mt-10 bg-[#a6Ff8D] text-black font-semibold px-6 py-2
+  rounded-[15px] border-solid border-[#BEcf4c]
+  border-t-[2px] hover:bg-[#D4FF3D] cursor-pointer border-r-[2px] border-l-[2px] border-b-[4px] opacity-100"
+          >
+            Get Started
+          </button>
+          <button
+            class="cursor-pointer bg-[#F5F5EB] text-black font-semibold px-6 py-2
+  rounded-[15px] opacity-100 border-solid border-[#BEcf4c]
+  border-t-[2px] hover:bg-[#D4D4D4] border-r-[2px] border-l-[2px] border-b-[4px]"
+          >
+            Explore
+          </button>
+          {/* <TiltCard /> */}
+        </div>
+      </div>
+      <div className="flex justify-between">
+        <div></div>
+        <div className="w-150 ">
+          <img src="injection.png" className="" alt="Injection" />
+        </div>
+        <div className="">
+          <img src="dashboard.png" className="w-85 md:w-250" alt="Dashboard" />
+        </div>
+        <div className="w-150">
+          <img src="stethoscope.png" className="" alt="Stethoscope" />
+        </div>
+      </div>
 
-</div> 
-<div className="flex justify-between">
-  <div></div>
-  <div className="w-150 ">
-    <img src="injection.png" className="" alt="Injection" />
+      <Card1></Card1>
 
-  </div>
-  <div className="">
-  <img src="dashboard.png" className="w-85 md:w-250" alt="Dashboard" />
-  </div>
-  <div className="w-150">
-    <img src="stethoscope.png" className="" alt="Stethoscope" />
-  </div>
-</div>
+      <CheckDiseaseCard></CheckDiseaseCard>
+      <VideoCallCard></VideoCallCard>
+      <div className="lg:ml-42 instrument flex flex-col items-center justify-center min-h-screen/2 bg-white p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 w-full max-w-6xl">
+          {/* Emergency Call Card */}
+          <StyledCard
+            title="Emergency Call"
+            description="Connect instantly to the nearest available ambulance service in your area."
+            imageSrc="https://media.lordicon.com/icons/wired/flat/1227-emergency.gif" // Placeholder for ambulance icon
+            buttonText="Call now"
+            className="" // Individual styling for this card
+            buttonClassName="bg-red-500 hover:bg-red-600"
+          />
 
-
-<Card1></Card1>
-        
-        
-    <CheckDiseaseCard></CheckDiseaseCard>
-    <VideoCallCard></VideoCallCard>
-    <div className="lg:ml-42 instrument flex flex-col items-center justify-center min-h-screen/2 bg-white p-6">
-     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 w-full max-w-6xl">
-        {/* Emergency Call Card */}
-        <StyledCard
-          title="Emergency Call"
-          description="Connect instantly to the nearest available ambulance service in your area."
-          imageSrc="https://media.lordicon.com/icons/wired/flat/1227-emergency.gif" // Placeholder for ambulance icon
-          buttonText="Call now"
-          className="" // Individual styling for this card
-          buttonClassName="bg-red-500 hover:bg-red-600"
-        />
-
-        {/* Period Tracker Card */}
-        {/* <StyledCard
+          {/* Period Tracker Card */}
+          {/* <StyledCard
           title="Period Tracker"
           description="Track your cycle, predict your fertile window, and understand your body better."
           imageSrc="Period.jpg" // Placeholder image for icon
@@ -83,18 +113,18 @@ export default function Home() {
           buttonClassName="bg-purple-500 hover:bg-purple-600"
         /> */}
 
-        {/* Save Reports Card */}
-        <StyledCard
-          title="Save Reports"
-          description="Easily store and access your reports for future reference. Never lose track of your data again."
-          imageSrc="https://media.lordicon.com/icons/wired/flat/3-cloud-download.gif" // Placeholder image for icon
-          buttonText="Learn more"
-          className="" // Individual styling for this card
-          buttonClassName="bg-blue-500 hover:bg-blue-600"
-        />
+          {/* Save Reports Card */}
+          <StyledCard
+            title="Save Reports"
+            description="Easily store and access your reports for future reference. Never lose track of your data again."
+            imageSrc="https://media.lordicon.com/icons/wired/flat/3-cloud-download.gif" // Placeholder image for icon
+            buttonText="Learn more"
+            className="" // Individual styling for this card
+            buttonClassName="bg-blue-500 hover:bg-blue-600"
+          />
+        </div>
       </div>
-    </div>
-    <Footer></Footer>
-        </>
-    );
+      <Footer></Footer>
+    </>
+  );
 }
