@@ -86,12 +86,11 @@ Users are encouraged to consult certified doctors for expert medical advice.
 
 ### Project Setup
 
-**Backend Setup**
 ```bash
 # Clone repository
 git clone https://github.com/adityash2006/Curifix-All-in-One-health-Management.git
 
-Backend
+Backend :
 cd backend
 
 # Install dependencies
@@ -104,7 +103,7 @@ npm install
 # Start development server
 node server.js
 
-Frontend
+Frontend :
 
 cd frontend
 
