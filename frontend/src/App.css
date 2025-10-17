@@ -26,3 +26,13 @@ font-style: normal;
   font-weight: 400;
   font-style: normal;
 }
+
+/* Add hover effects for your buttons here. Remember to replace '.button' and '.primary-button' with your actual button class names. For a smooth animation, consider adding a 'transition' property (e.g., `transition: background-color 0.3s ease;`) to your base button class. */
+.button:hover {
+  background-color: #6366f1; /* A slightly darker shade of blue */
+  cursor: pointer; /* Indicate it's clickable */
+}
+
+.primary-button:hover {
+    background-color: #93c572; /* A slightly darker shade of green */
+}

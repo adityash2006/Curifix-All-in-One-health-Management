@@ -32,3 +32,14 @@
 
 
 
+
+
+/*
+ * This is a generic hover effect applied to all <button> elements.
+ * According to the plan, you should identify specific class names for your buttons
+ * and replace 'button' below with those class names (e.g., '.your-button-class:hover').
+ */
+button:hover {
+    background-color: #2980b9; /* Example color: a slightly darker shade of blue. Adjust as needed (Plan Step 5). */
+    cursor: pointer; /* Optional: changes cursor to a pointer on hover for better user experience. */
+}
