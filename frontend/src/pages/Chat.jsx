@@ -16,18 +16,12 @@ function Chat() {
   const providerValues={prevChats,allthreads,setallthreads,setPrevChats,newChat,setNewChat,prompt,setPrompt,reply,setReply,currthreadid,setcurrthreadid};
 
   return (
-    <>
-    
-    
     <div className='app'>
-      
-    <MyContext.Provider value={providerValues}>
-   <Sidebar></Sidebar>
-    <ChatWindow />
-
-    </MyContext.Provider>
+      <MyContext.Provider value={providerValues}>
+      <Sidebar></Sidebar>
+      <ChatWindow />
+      </MyContext.Provider>
     </div>
-    </>
   )
 }
 
