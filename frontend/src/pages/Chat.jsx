@@ -12,13 +12,14 @@ function Chat() {
   const [prevChats,setPrevChats]=useState([]);
   const [newChat,setNewChat]=useState(true);
   const [allthreads,setallthreads]=useState([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const providerValues={prevChats,allthreads,setallthreads,setPrevChats,newChat,setNewChat,prompt,setPrompt,reply,setReply,currthreadid,setcurrthreadid};
+  const providerValues={prevChats,allthreads,setallthreads,setPrevChats,newChat,setNewChat,prompt,setPrompt,reply,setReply,currthreadid,setcurrthreadid,sidebarOpen,setSidebarOpen};
 
   return (
-    <div className='app'>
+    <div className='app flex h-screen overflow-hidden'>
       <MyContext.Provider value={providerValues}>
-      <Sidebar></Sidebar>
+      <Sidebar />
       <ChatWindow />
       </MyContext.Provider>
     </div>
