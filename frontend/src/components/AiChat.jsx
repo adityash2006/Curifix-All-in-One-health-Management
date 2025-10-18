@@ -134,11 +134,11 @@ export default function AiChat() {
                         > 
                         { latestReply }
                         </ReactMarkdown>
-                        { latestReply &&
+                        {latestReply &&
                             <div className="group relative inline-block">
                                 <button
                                     className="text-gray-700 hover:text-black cursor-pointer"
-                                    onClick={() => handlecopy(chat.content)}
+                                    onClick={() => handlecopy(latestReply)} // ✅ use latestReply
                                 >
                                     <i className="fa-solid fa-copy"></i>
                                 </button>
