@@ -1,9 +1,14 @@
 import Navbar from "../components/Navbar"
 import { SignupForm } from "../components/Signupform"
 import Footer from "../components/Footer";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
  
 export default function Signup() {
+
+  const navigate= useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-lime-50 relative overflow-hidden">
       <Navbar />
@@ -64,6 +69,19 @@ export default function Signup() {
               <p className="mt-2 text-gray-600">Create your healthcare account</p>
             </div>
             <SignupForm />
+            
+            <div className="flex justify-center mt-6 text-center">
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  const decoded = jwtDecode(credentialResponse.credential);
+                  console.log("Google Signup Success:", decoded);
+                  navigate("/"); 
+                }}
+                onError={() => {
+                  console.log("Google Signup Failed");
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
