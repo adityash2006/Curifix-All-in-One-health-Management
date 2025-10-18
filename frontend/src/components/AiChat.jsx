@@ -64,12 +64,19 @@ export default function AiChat() {
                                 chat.role==="user"?
                                 <div className="relative inline-block text-left max-w-110 mt-2">
                                     <span className="inline-block text-lg text-black mb-7 rounded-lg p-2 px-3 bg-[#f7ffb1]">{chat.content}</span>
-                                    <button
-                                        className="absolute bottom-1 right-1 cursor-pointer text-gray-700"
-                                        onClick={() => handlecopy(chat.content)}
-                                    >
-                                        <i class="fa-solid fa-copy"></i>
-                                    </button>
+                                    <div className="group absolute bottom-1 right-1">
+                                        <button
+                                            className="text-gray-700 hover:text-black cursor-pointer"
+                                            onClick={() => handlecopy(chat.content)}
+                                        >
+                                            <i className="fa-solid fa-copy"></i>
+                                        </button>
+
+                                        {/* Tooltip */}
+                                        <span className="absolute right-0 mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                            Copy
+                                        </span>
+                                    </div>
                                 </div>
                                 :
                                 <div className="markdown-content text-black">
@@ -78,8 +85,19 @@ export default function AiChat() {
                                     >
                                         {chat.content}
                                     </ReactMarkdown>
-                                    <button className="copybutton cursor-pointer" onClick={() => handlecopy(chat.content)}><i class="fa-solid fa-copy"></i></button>
-                                    
+                                    <div className="group relative inline-block">
+                                        <button
+                                            className="text-gray-700 hover:text-black cursor-pointer"
+                                            onClick={() => handlecopy(chat.content)}
+                                        >
+                                            <i className="fa-solid fa-copy"></i>
+                                        </button>
+
+                                        {/* Tooltip below the button */}
+                                        <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                            Copy
+                                        </span>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -93,19 +111,45 @@ export default function AiChat() {
                             >
                             {prevChats[prevChats.length-1].content}
                             </ReactMarkdown>
-                            <button className="copybutton cursor-pointer" onClick={() => handlecopy(prevChats[prevChats.length-1].content)}><i class="fa-solid fa-copy"></i></button>
+                            <div className="group relative inline-block">
+                                <button
+                                    className="text-gray-700 hover:text-black cursor-pointer"
+                                    onClick={() => handlecopy(chat.content)}
+                                >
+                                    <i className="fa-solid fa-copy"></i>
+                                </button>
+
+                                {/* Tooltip below the button */}
+                                <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                    Copy
+                                </span>
+                            </div>
                         </div>
                     )
                     :
                     (
                     <div className="aiprompt text-black" key={"typing"}>
-                            <ReactMarkdown 
+                        <ReactMarkdown 
                             rehypePlugins={[rehypeHighlight]}
-                            > 
-                            {latestReply}
-                            </ReactMarkdown>
-                            {latestReply&&<button className="copybutton cursor-pointer" onClick={() => handlecopy(latestReply)}><i class="fa-solid fa-copy"></i></button>}
-                        </div>
+                        > 
+                        { latestReply }
+                        </ReactMarkdown>
+                        { latestReply &&
+                            <div className="group relative inline-block">
+                                <button
+                                    className="text-gray-700 hover:text-black cursor-pointer"
+                                    onClick={() => handlecopy(chat.content)}
+                                >
+                                    <i className="fa-solid fa-copy"></i>
+                                </button>
+
+                                {/* Tooltip below the button */}
+                                <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                    Copy
+                                </span>
+                            </div>
+                        }
+                    </div>
                     )
                 }
             </div>
