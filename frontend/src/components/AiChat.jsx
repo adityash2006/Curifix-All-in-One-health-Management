@@ -47,6 +47,18 @@ export default function AiChat() {
         return () => clearInterval(interval);
 
     },[reply,prevChats])
+
+    const handleSpeak = (text) => {
+        if (!text) return;
+
+        // Stop any ongoing speech
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1; // normal speed
+        utterance.pitch = 1; // normal pitch
+        window.speechSynthesis.speak(utterance);
+    };
     
     return (
         <>
@@ -98,6 +110,20 @@ export default function AiChat() {
                                             Copy
                                         </span>
                                     </div>
+                                    <div className="group relative inline-block ml-2">
+                                        <button
+                                            className="text-gray-700 hover:text-black cursor-pointer"
+                                            onClick={() => handleSpeak(chat.content)}
+                                            title="Speak"
+                                        >
+                                            <i className="fa-solid fa-volume-up"></i>
+                                        </button>
+
+                                        {/* Tooltip */}
+                                        <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                            Speak
+                                        </span>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -108,7 +134,6 @@ export default function AiChat() {
                         <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
                             {prevChats[prevChats.length - 1].content}
                         </ReactMarkdown>
-
                         <div className="group relative inline-block">
                             <button
                                 className="text-gray-700 hover:text-black cursor-pointer"
@@ -121,6 +146,20 @@ export default function AiChat() {
                                 Copy
                             </span>
                         </div>
+
+                        <div className="group relative inline-block ml-2">
+                            <button
+                                className="text-gray-700 hover:text-black cursor-pointer"
+                                onClick={() => handleSpeak(prevChats[prevChats.length - 1].content)}
+                                title="Speak"
+                            >
+                                <i className="fa-solid fa-volume-up"></i>
+                            </button>
+                            {/* Tooltip */}
+                            <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                Speak
+                            </span>
+                        </div>
                     </div>
                 ) : (
                     <div className="aiprompt text-black" key={"typing"}>
@@ -128,17 +167,33 @@ export default function AiChat() {
                             {latestReply}
                         </ReactMarkdown>
                         {latestReply && (
-                            <div className="group relative inline-block">
-                                <button
-                                    className="text-gray-700 hover:text-black cursor-pointer"
-                                    onClick={() => handlecopy(latestReply)}
-                                >
-                                    <i className="fa-solid fa-copy"></i>
-                                </button>
+                            <div>
+                                <div className="group relative inline-block">
+                                    <button
+                                        className="text-gray-700 hover:text-black cursor-pointer"
+                                        onClick={() => handlecopy(latestReply)}
+                                    >
+                                        <i className="fa-solid fa-copy"></i>
+                                    </button>
 
-                                <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
-                                    Copy
-                                </span>
+                                    <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                        Copy
+                                    </span>
+                                </div>
+                                <div className="group relative inline-block ml-2">
+                                    <button
+                                        className="text-gray-700 hover:text-black cursor-pointer"
+                                        onClick={() => handleSpeak(latestReply)}
+                                        title="Speak"
+                                    >
+                                        <i className="fa-solid fa-volume-up"></i>
+                                    </button>
+
+                                    {/* Tooltip */}
+                                    <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                        Speak
+                                    </span>
+                                </div>
                             </div>
                         )}
                     </div>
