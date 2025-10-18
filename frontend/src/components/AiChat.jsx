@@ -103,55 +103,46 @@ export default function AiChat() {
                         </div>
                     )
                 }
-                {
-                    (prevChats.length >0 ) && latestReply===null ? (
-                        <div className="aiprompt text-black" key={"non-typing"}>
-                            <ReactMarkdown 
-                            rehypePlugins={[rehypeHighlight]}
-                            >
-                            {prevChats[prevChats.length-1].content}
-                            </ReactMarkdown>
-                            <div className="group relative inline-block">
-                                <button
-                                    className="text-gray-700 hover:text-black cursor-pointer"
-                                    onClick={() => handlecopy(chat.content)}
-                                >
-                                    <i className="fa-solid fa-copy"></i>
-                                </button>
-
-                                {/* Tooltip below the button */}
-                                <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
-                                    Copy
-                                </span>
-                            </div>
-                        </div>
-                    )
-                    :
-                    (
-                    <div className="aiprompt text-black" key={"typing"}>
-                        <ReactMarkdown 
-                            rehypePlugins={[rehypeHighlight]}
-                        > 
-                        { latestReply }
+                {prevChats.length > 0 && latestReply === null ? (
+                    <div className="aiprompt text-black" key={"non-typing"}>
+                        <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                            {prevChats[prevChats.length - 1].content}
                         </ReactMarkdown>
-                        {latestReply &&
+
+                        <div className="group relative inline-block">
+                            <button
+                                className="text-gray-700 hover:text-black cursor-pointer"
+                                onClick={() => handlecopy(prevChats[prevChats.length - 1].content)}
+                            >
+                                <i className="fa-solid fa-copy"></i>
+                            </button>
+
+                            <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
+                                Copy
+                            </span>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="aiprompt text-black" key={"typing"}>
+                        <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                            {latestReply}
+                        </ReactMarkdown>
+                        {latestReply && (
                             <div className="group relative inline-block">
                                 <button
                                     className="text-gray-700 hover:text-black cursor-pointer"
-                                    onClick={() => handlecopy(latestReply)} // ✅ use latestReply
+                                    onClick={() => handlecopy(latestReply)}
                                 >
                                     <i className="fa-solid fa-copy"></i>
                                 </button>
 
-                                {/* Tooltip below the button */}
                                 <span className="absolute top-full mt-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-md px-2 py-1 whitespace-nowrap shadow-md">
                                     Copy
                                 </span>
                             </div>
-                        }
+                        )}
                     </div>
-                    )
-                }
+                )}
             </div>
         </>
     );
