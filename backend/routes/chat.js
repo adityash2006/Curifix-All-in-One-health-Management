@@ -1,5 +1,6 @@
 import express from "express";
 import Thread from "../models/Thread.js";
+import auth from "../middleware/auth.js";
 const router=express.Router();
 import { getresponsefromai } from "../utils/ai.js";
 
@@ -56,7 +57,7 @@ router.delete("/thread/:threadId",async (req,res)=>{
     }
 });
 
-router.post("/chat",async (req,res)=>{
+router.post("/chat", auth, async (req,res)=>{
     const {threadId,message}=req.body;
     if(!threadId || !message){
         res.status(400).json({error:"required fields not found"});
