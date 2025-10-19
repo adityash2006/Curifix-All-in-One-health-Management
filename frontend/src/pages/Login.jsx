@@ -1,8 +1,14 @@
 import { LoginForm } from "../components/Loginform"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer";
+import { GoogleLogin } from '@react-oauth/google';
+import {jwtDecode} from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function Login() {
+  const navigate= useNavigate();
   return (<>
   <Navbar></Navbar>
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-lime-50 relative overflow-hidden">
@@ -63,6 +69,19 @@ export default function Login() {
               <p className="mt-2 text-gray-600">Sign in to your healthcare dashboard</p>
             </div>
             <LoginForm />
+            <div className="flex justify-center mt-6 text-center">
+            <GoogleLogin
+  onSuccess={(credentialResponse) => {
+    const decoded = jwtDecode(credentialResponse.credential);
+    console.log('Google Login Success:', decoded);
+    navigate("/")
+  }}
+  onError={() => {
+    console.log('Google Login Failed');
+  }}
+/>
+
+              </div>
           </div>
         </div>
       </div>

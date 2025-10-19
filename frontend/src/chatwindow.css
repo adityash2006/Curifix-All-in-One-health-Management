@@ -1,0 +1,108 @@
+/* Chat window responsive styles */
+.chatinput {
+    position: relative;
+}
+
+/* Dropdown styles */
+.group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+}
+
+.group:hover .group-hover\:visible {
+    visibility: visible;
+}
+
+/* Dropdown animation */
+.dropdown-menu {
+    transform: translateY(-10px);
+    transition: all 0.2s ease-in-out;
+}
+
+.group:hover .dropdown-menu {
+    transform: translateY(0);
+}
+
+/* Mobile dropdown adjustments */
+@media (max-width: 640px) {
+    .chatnav .relative .absolute {
+        width: 200px;
+        right: 0;
+        left: auto;
+    }
+    
+    .chatnav .flex .relative:first-child .absolute {
+        left: 0;
+        right: auto;
+    }
+}
+
+/* Ensure dropdowns appear above other content */
+.chatnav .relative .absolute {
+    z-index: 1000;
+}
+
+/* Smooth hover transitions */
+.chatnav .group > div,
+.chatnav .group > span {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Mobile adjustments for input */
+@media (max-width: 640px) {
+    .chatinput input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px 16px;
+    }
+    
+    .chatnav {
+        padding: 16px;
+    }
+    
+    .chatnav span {
+        font-size: 18px;
+        padding: 8px 12px;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1023px) {
+    .chatinput input {
+        width: 85%;
+    }
+}
+
+/* Desktop adjustments */
+@media (min-width: 1024px) {
+    .chatinput input {
+        width: 70%;
+    }
+}
+
+/* Ensure proper button positioning on mobile */
+@media (max-width: 1023px) {
+    .chatinput button {
+        right: 20px;
+    }
+}
+
+/* Sidebar responsive styles */
+.side {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Loading spinner positioning */
+.chatinput .react-spinners-ScaleLoader {
+    margin-top: 10px;
+}
+
+/* Profile avatar hover effect */
+.chatnav .bg-blue-400:hover {
+    transform: scale(1.05);
+}
+
+/* Dropdown item hover effects */
+.chatnav .absolute a:hover {
+    background-color: #f3f4f6;
+    transform: translateX(2px);
+    transition: all 0.15s ease-in-out;
+}
