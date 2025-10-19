@@ -13,10 +13,10 @@ export default function Home() {
   return (
     <>
       <Navbar></Navbar>
-      <div className="flex flex-col items-center justify-center pt-12 md:pt-20 lg:pt-25 bg-white px-4 md:px-8 w-full">
-        <div className="w-full flex flex-col items-center justify-center mb-12 md:mb-16">
+      <div className="flex flex-col items-center justify-center pt-8 md:pt-12 lg:pt-16 bg-white px-4 md:px-8 w-full">
+        <div className="w-full flex flex-col items-center justify-center mb-6 md:mb-8">
           <h1
-            className="instrument font-bold tracking-tighter text-[#303030] text-center mb-2"
+            className="instrument font-bold tracking-tighter text-[#303030] text-center mb-1"
             style={{ fontSize: "clamp(2rem, 10vw, 5rem)" }}
           >
             Your Personal AI
@@ -36,13 +36,13 @@ export default function Home() {
             </span>
           </div>
         </div>
-        <span className="mt-6 md:mt-10 mb-8 w-full sm:w-[80%] md:w-[60%] lg:w-[35%] text-center text-sm md:text-base text-[#999999] mx-auto">
+        <span className="mt-3 md:mt-2 mb-8 md:mb-6 w-full sm:w-[80%] md:w-[60%] lg:w-[35%] text-center text-sm md:text-base text-[#999999] mx-auto">
           From tracking symptoms to storing reports and finding nearby clinics,
           Curifix keeps your healthcare simple, smart, and accessible
         </span>
-        <div className="space-x-5 mb-20">
+        <div className="space-x-5 mb-12 md:mb-14">
           <button
-            className="mt-10 bg-[#a6Ff8D] text-black font-semibold px-6 py-2
+            className="mt-2 bg-[#a6Ff8D] text-black font-semibold px-6 py-2
   rounded-[15px] border-solid border-[#BEcf4c]
   border-t-[2px] hover:bg-[#D4FF3D] cursor-pointer border-r-[2px] border-l-[2px] border-b-[4px] opacity-100"
           >
@@ -59,31 +59,31 @@ export default function Home() {
       </div>
 
       {/* Images Section */}
-      <div className="w-full bg-white px-4 md:px-8 py-8 md:py-16 overflow-hidden">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-4 md:gap-6 max-w-7xl mx-auto">
+      <div className="w-full bg-white px-4 md:px-8 py-6 md:py-4 overflow-hidden">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 max-w-7xl mx-auto">
           {/* Injection - Hidden on mobile, left on desktop */}
-          <div className="hidden md:flex items-end justify-center w-1/3">
+          <div className="hidden md:flex lg:mb-30 items-center justify-center flex-shrink-0">
             <img
               src="injection.png"
-              className="h-60 lg:h-72 w-auto object-contain"
+              className="h-40 lg:h-64 w-auto object-contain"
               alt="Injection"
             />
           </div>
 
           {/* Dashboard - Center */}
-          <div className="flex items-center justify-center w-full md:w-1/3">
+          <div className="flex items-center justify-center flex-shrink-0">
             <img
               src="dashboard.png"
-              className="w-full max-w-xs md:max-w-sm lg:max-w-md h-auto object-contain"
+              className="h-80 lg:h-96 w-auto object-contain"
               alt="Dashboard"
             />
           </div>
 
           {/* Stethoscope - Hidden on mobile, right on desktop */}
-          <div className="hidden md:flex items-end justify-center w-1/3">
+          <div className="hidden md:flex lg:pb-30 items-center justify-center flex-shrink-0">
             <img
               src="stethoscope.png"
-              className="h-60 lg:h-72 w-auto object-contain"
+              className="h-40 lg:h-64 w-auto object-contain"
               alt="Stethoscope"
             />
           </div>
