@@ -84,33 +84,112 @@ Users are encouraged to consult certified doctors for expert medical advice.
 ### 💬 Tagline  
 *"CuriFix – AI that cares, not replaces."*
 
-### Project Setup
+---
+
+# 🚀 Curifix - Health Management Setup Guide
+
+Follow these steps to clone, install, and run the **Curifix** project.
+
+---
+
+### 🧩 Step 1: Clone the Repository
+Clone the repository from GitHub to your local machine.
+```bash
+git clone https://github.com/adityash2006/Curifix-All-in-One-health-Management.git
+cd Curifix-All-in-One-health-Management
+````
+
+---
+
+### ⚙️ Step 2: Install Dependencies for Backend
+
+Navigate to the backend directory and install required dependencies.
 
 ```bash
-# Clone repository
-git clone https://github.com/adityash2006/Curifix-All-in-One-health-Management.git
-
-Backend :
 cd backend
-
-# Install dependencies
 npm install
+```
 
-# Create .env add these two fields
-#   MONGODB_URI=mongodb://localhost:27017/curifix
-#   GOOGLE_API_KEY=sample gemini api key
+Create a `.env` file in the backend folder and add these fields:
 
-# Start development server
+```env
+MONGODB_URI=mongodb://localhost:27017/curifix
+GOOGLE_API_KEY=your_gemini_api_key_here
+```
+
+---
+
+### 🚀 Step 3: Start the Backend Server
+
+Run the backend server locally.
+
+```bash
 node server.js
+```
 
-Frontend :
+The backend server will run on: `http://localhost:5000`
 
-cd frontend
+---
 
-# Install dependencies
+### 💻 Step 4: Install Dependencies for Frontend
+
+Navigate to the frontend directory and install its dependencies.
+
+```bash
+cd ../frontend
 npm install
+```
 
-# Start development server
+---
+
+### 🌐 Step 5: Start the Frontend App
+
+Start the frontend application in development mode.
+
+```bash
 npm run dev
 ```
 
+The frontend server will run on: `http://localhost:3000`
+
+---
+
+✅ **Now both the backend and frontend should be running successfully!**
+You can open your browser and start using the app.
+
+---
+
+### ✨ Features
+
+* Full-stack health management system
+* User-friendly UI for managing health records
+* Supports multiple languages
+* Integrated Google API features
+
+---
+
+### 🛠️ Contributing
+
+1. Fork the repository
+2. Create a feature branch:
+
+```bash
+git checkout -b feature-name
+```
+
+3. Make your changes
+4. Commit your changes:
+
+```bash
+git commit -m "Description of changes"
+```
+
+5. Push to the branch:
+
+```bash
+git push origin feature-name
+```
+
+6. Open a Pull Request
+
+---
