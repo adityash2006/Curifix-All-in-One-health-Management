@@ -16,21 +16,21 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center pt-8 md:pt-12 lg:pt-16 bg-white px-4 md:px-8 w-full">
         <div className="w-full flex flex-col items-center justify-center mb-6 md:mb-8">
           <h1
-            className="instrument font-bold tracking-tighter text-[#303030] text-center mb-1"
-            style={{ fontSize: "clamp(2rem, 10vw, 5rem)" }}
+            className="instrument font-bold tracking-tighter text-[#303030] text-center "
+            style={{ fontSize: "clamp(2rem, 9vw, 4.5rem)" }}
           >
             Your Personal AI
           </h1>
-          <div className="flex flex-row items-center justify-center gap-2 md:gap-4 flex-wrap">
+          <div className="mt-[-1rem] flex flex-row items-center justify-center gap-2 md:gap-2 flex-wrap">
             <h1
               className="instrument font-bold tracking-tighter text-[#303030]"
-              style={{ fontSize: "clamp(2rem, 10vw, 5rem)" }}
+              style={{ fontSize: "clamp(2rem, 9vw, 4.3rem)" }}
             >
               Health Companion
             </h1>
             <span
-              className="italic px-3 sm:px-4 rounded-lg bg-[rgb(233,255,91)] text-[#303030]"
-              style={{ fontSize: "clamp(2rem, 10vw, 5rem)" }}
+              className="italic px-3 sm:px-2 rounded-lg bg-[rgb(233,255,91)] text-[#303030]"
+              style={{ fontSize: "clamp(2rem, 10vw, 4.3rem)" }}
             >
               Curifix
             </span>
