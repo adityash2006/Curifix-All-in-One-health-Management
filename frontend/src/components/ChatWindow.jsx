@@ -11,6 +11,216 @@ export default function ChatWindow() {
   const [fetchCount, setFetchCount] = useState(0);
   const [curifixDropdownOpen, setCurifixDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [improving, setImproving] = useState(false);
+
+  const improvePrompt = () => {
+  if (!prompt?.trim()) {
+    console.warn("No prompt provided for improvement");
+    return;
+  }
+
+  setImproving(true);
+
+  try {
+    let improved = prompt.trim();
+
+    // Phase 1: Basic text normalization
+    improved = basicTextNormalization(improved);
+    
+    // Phase 2: Spelling and grammar corrections
+    improved = correctSpellingAndGrammar(improved);
+    
+    // Phase 3: Health context enhancement
+    improved = enhanceHealthContext(improved);
+    
+    // Phase 4: Final formatting
+    improved = finalFormatting(improved);
+
+    setPrompt(improved);
+  } catch (err) {
+    console.error("Error improving prompt:", err);
+    // Optional: revert to original prompt or show error message
+  } finally {
+    setImproving(false);
+  }
+};
+
+// Helper functions for better organization
+const basicTextNormalization = (text) => {
+  let normalized = text;
+  
+  // Normalize whitespace and remove excessive punctuation
+  normalized = normalized.replace(/\s+/g, " ");
+  normalized = normalized.replace(/[.!?]{2,}/g, ".");
+  normalized = normalized.replace(/,{2,}/g, ",");
+  
+  return normalized;
+};
+
+const correctSpellingAndGrammar = (text) => {
+  let corrected = text;
+  
+  // Common shorthand expansions
+  const shorthandMap = {
+    "\\bpls\\b": "please",
+    "\\bplz\\b": "please",
+    "\\bthx\\b": "thanks",
+    "\\bthnx\\b": "thanks",
+    "\\bu\\b": "you",
+    "\\bur\\b": "your",
+    "\\bwat\\b": "what",
+    "\\bwen\\b": "when",
+    "\\bwher\\b": "where",
+    "\\bwhy\\b": "why",
+    "\\bhow\\b": "how",
+    "\\br\\b": "are",
+    "\\bim\\b": "I'm",
+    "\\bive\\b": "I've",
+    "\\bidk\\b": "I don't know",
+    "\\bbtw\\b": "by the way",
+    "\\bafaik\\b": "as far as I know",
+    "\\bomg\\b": "oh my god",
+    "\\blol\\b": "",
+    "\\brofl\\b": "",
+    "\\btbh\\b": "to be honest",
+    "\\bimo\\b": "in my opinion",
+    "\\bdef\\b": "definitely",
+    "\\bprob\\b": "probably",
+    "\\bgonna\\b": "going to",
+    "\\bwanna\\b": "want to",
+    "\\bgotta\\b": "got to",
+    "\\binfo\\b": "information",
+    "\\bbp\\b": "blood pressure",
+    "\\btemp\\b": "temperature",
+    "\\bhr\\b": "heart rate",
+    "\\bspo2\\b": "oxygen saturation",
+    "\\bbmi\\b": "body mass index"
+  };
+
+  // Apply shorthand replacements
+  for (const [pattern, replacement] of Object.entries(shorthandMap)) {
+    corrected = corrected.replace(new RegExp(pattern, "gi"), replacement);
+  }
+
+  // Common misspellings in medical/health context
+  const misspellMap = {
+    "teh": "the", "recieve": "receive", "acheive": "achieve",
+    "acheiveing": "achieving", "achne": "acne", "acnee": "acne",
+    "sympton": "symptom", "symptons": "symptoms", "feaver": "fever",
+    "feverr": "fever", "diarhea": "diarrhea", "diarrhoea": "diarrhea",
+    "nusea": "nausea", "nausia": "nausea", "vommit": "vomit",
+    "vommiting": "vomiting", "vomitingg": "vomiting", "throath": "throat",
+    "sorethroat": "sore throat", "caugh": "cough", "coough": "cough",
+    "dizzyness": "dizziness", "diziness": "dizziness", "bloodsugar": "blood sugar",
+    "sore-ness": "soreness", "constipationn": "constipation", "allergi": "allergy",
+    "allergieses": "allergies", "medicin": "medicine", "medicationn": "medication",
+    "paitient": "patient", "dieabetes": "diabetes", "hypertention": "hypertension",
+    "cholestrol": "cholesterol", "asthmaa": "asthma", "arthiritis": "arthritis",
+    "migrane": "migraine", "fatiguee": "fatigue", "sweting": "sweating",
+    "breathingg": "breathing", "heartrate": "heart rate", "headace": "headache",
+    "stomache": "stomach", "pregnency": "pregnancy", "pregant": "pregnant"
+  };
+
+  // Apply spelling corrections with case preservation
+  corrected = corrected.replace(/\b([a-zA-Z-']+)\b/g, (word) => {
+    const lower = word.toLowerCase();
+    if (misspellMap[lower]) {
+      return preserveCase(word, misspellMap[lower]);
+    }
+    return word;
+  });
+
+  // Reduce excessive repeated letters (but keep reasonable ones like "too", "see")
+  corrected = corrected.replace(/([a-zA-Z])\1{2,}/g, (match, letter) => {
+    // Keep common words with double letters intact
+    const commonDoubleLetters = ['oo', 'ee', 'll', 'ss', 'ff', 'pp', 'tt', 'mm', 'nn', 'dd', 'gg', 'rr', 'cc', 'bb'];
+    if (commonDoubleLetters.includes(letter + letter) && match.length === 3) {
+      return match; // Keep "too", "see", etc.
+    }
+    return letter + letter; // Reduce others to double letters
+  });
+
+  return corrected;
+};
+
+const enhanceHealthContext = (text) => {
+  let enhanced = text;
+  
+  const healthKeywords = [
+    // Symptoms
+    "symptom", "symptoms", "fever", "cough", "pain", "ache", "acne", "nausea", 
+    "diarrhea", "allergy", "rash", "headache", "dizziness", "vomit", "vomiting",
+    "sore throat", "soreness", "constipation", "fatigue", "sweating", "breathing",
+    
+    // Conditions
+    "health", "medical", "doctor", "hospital", "clinic", "disease", "illness",
+    "infection", "virus", "bacterial", "condition", "diagnosis", "treatment",
+    
+    // Vital signs
+    "blood pressure", "bp", "temperature", "temp", "heart rate", "hr", 
+    "oxygen", "spo2", "bmi", "weight", "height",
+    
+    // Body parts
+    "head", "stomach", "chest", "back", "arm", "leg", "hand", "foot", "eye",
+    "ear", "nose", "throat", "skin", "heart", "lung", "liver", "kidney"
+  ];
+
+  const lowerText = enhanced.toLowerCase();
+  const hasHealthContext = healthKeywords.some(keyword => lowerText.includes(keyword));
+  
+  // Only add health context if completely missing and prompt is short/needs context
+  if (!hasHealthContext && enhanced.length < 100) {
+    // More natural ways to introduce health context
+    const healthPrefixes = [
+      "I have a health question: ",
+      "Regarding a health concern: ",
+      "About my health: ",
+      "Health-related question: "
+    ];
+    
+    const randomPrefix = healthPrefixes[Math.floor(Math.random() * healthPrefixes.length)];
+    enhanced = randomPrefix + enhanced;
+  }
+
+  return enhanced;
+};
+
+const finalFormatting = (text) => {
+  let formatted = text;
+  
+  // Ensure first letter is capitalized
+  formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  
+  // Remove any duplicate health prefixes that might have been added
+  formatted = formatted.replace(/(Regarding health: )+/g, "Regarding health: ");
+  
+  // Smart punctuation - only add question mark if it's clearly a question
+  const isQuestion = /\b(what|when|where|why|how|who|can|could|will|would|should|is|are|do|does|did|have|has|may|might)\b/i.test(formatted) ||
+                    formatted.includes('?') ||
+                    formatted.length < 50; // Assume short prompts are questions
+  
+  if (isQuestion && !/[.?!]$/.test(formatted)) {
+    formatted += "?";
+  } else if (!/[.?!]$/.test(formatted)) {
+    formatted += ".";
+  }
+  
+  // Final whitespace cleanup
+  formatted = formatted.replace(/\s+/g, " ").trim();
+  
+  return formatted;
+};
+
+// Helper function to preserve original capitalization
+const preserveCase = (original, corrected) => {
+  if (original === original.toUpperCase()) {
+    return corrected.toUpperCase();
+  } else if (original[0] === original[0].toUpperCase()) {
+    return corrected.charAt(0).toUpperCase() + corrected.slice(1);
+  } else {
+    return corrected;
+  }
+};
 
   const getreply = async () => {
     // Prevent empty or whitespace-only messages
@@ -222,13 +432,38 @@ export default function ChatWindow() {
             name="" 
             id="" 
           />
-          <button 
-            onClick={getreply} 
-            disabled={!prompt.trim()} 
-            className={`absolute right-4 lg:right-[17.5%] top-1/2 transform -translate-y-1/2 ${!prompt.trim() ? "opacity-50 cursor-not-allowed" : ""}`}
+          <div>
+            {/* Improve Prompt Button */}
+          <button
+            onClick={improvePrompt}
+            disabled={!prompt.trim() || improving}
+            className={`absolute lg:right-[19%] top-1/2 transform -translate-y-1/2 ${
+              !prompt.trim() ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            title="Improve Prompt"
+          >
+            {improving ? (
+              <i className="fa-solid fa-spinner fa-spin text-yellow-600"></i>
+            ) : (
+              <i className="fa-solid fa-wand-magic-sparkles text-yellow-500 hover:text-yellow-600"></i>
+            )}
+          </button>
+
+          &nbsp;&nbsp;  
+
+          {/* Send Button */}
+          <button
+            onClick={getreply}
+            disabled={!prompt.trim()}
+            className={`absolute right-4 lg:right-[17.5%] top-1/2 transform -translate-y-1/2 ${
+              !prompt.trim() ? "opacity-50 cursor-not-allowed" : ""
+            }`} 
+            title="Send"
           >
             <i className="text-green-900 hover:text-green-700 cursor-pointer fa-solid fa-paper-plane"></i>
           </button>
+          </div>
+
           <ScaleLoader color="black" loading={loading} />
         </div>
         <div>
@@ -237,6 +472,7 @@ export default function ChatWindow() {
           </p>
         </div>
       </div>
+      
     </div>
   );
 }

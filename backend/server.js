@@ -1,4 +1,5 @@
 import express from "express";
+
 import "dotenv/config"
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import cors from "cors";
@@ -35,5 +36,3 @@ app.listen(3000, () => {
   console.log("Server is running on port 3000");
   Connectmongo();
 });
-
-
