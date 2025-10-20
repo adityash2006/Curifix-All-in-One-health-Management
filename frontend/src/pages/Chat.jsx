@@ -13,8 +13,10 @@ function Chat() {
   const [newChat,setNewChat]=useState(true);
   const [allthreads,setallthreads]=useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [editingMessage, setEditingMessage] = useState(null);
+  const [editingIndex, setEditingIndex] = useState(null);
 
-  const providerValues={prevChats,allthreads,setallthreads,setPrevChats,newChat,setNewChat,prompt,setPrompt,reply,setReply,currthreadid,setcurrthreadid,sidebarOpen,setSidebarOpen};
+  const providerValues={prevChats,allthreads,setallthreads,setPrevChats,newChat,setNewChat,prompt,setPrompt,reply,setReply,currthreadid,setcurrthreadid,sidebarOpen,setSidebarOpen,editingMessage,setEditingMessage,editingIndex,setEditingIndex};
 
   return (
     <div className='app flex h-screen overflow-hidden'>

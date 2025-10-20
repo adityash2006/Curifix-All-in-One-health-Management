@@ -6,17 +6,33 @@ import Chat from './AiChat.jsx';
 import { Link } from "react-router-dom";
 
 export default function ChatWindow() {
-  const { prompt,setNewChat, setPrompt, reply, setReply, currthreadid, setcurrthreadid, prevChats, setPrevChats, sidebarOpen, setSidebarOpen } = useContext(MyContext);
+  const { prompt,setNewChat, setPrompt, reply, setReply, currthreadid, setcurrthreadid, prevChats, setPrevChats, sidebarOpen, setSidebarOpen, editingMessage, setEditingMessage, editingIndex, setEditingIndex } = useContext(MyContext);
   const [loading, setloading] = useState(false);
   const [fetchCount, setFetchCount] = useState(0);
   const [curifixDropdownOpen, setCurifixDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [pendingEdit, setPendingEdit] = useState(null);
+
+  const cancelEdit = () => {
+    setEditingMessage(null);
+    setEditingIndex(null);
+    setPendingEdit(null);
+    setPrompt("");
+  };
 
   const getreply = async () => {
     // Prevent empty or whitespace-only messages
     if (!prompt.trim()) {
       console.warn("Cannot send empty message");
       return;
+    }
+
+    // Store edit information if this is an edit
+    if (editingMessage !== null && editingIndex !== null) {
+      setPendingEdit({
+        editIndex: editingIndex,
+        originalMessage: editingMessage
+      });
     }
 
     setNewChat(false);
@@ -30,6 +46,9 @@ export default function ChatWindow() {
       body: JSON.stringify({
         message: prompt,
         threadId: currthreadid,
+        isEdit: editingMessage !== null,
+        editIndex: editingIndex,
+        originalMessage: editingMessage
       }),
     };
 
@@ -40,8 +59,13 @@ export default function ChatWindow() {
       console.log(g.reply);
       setReply(g.reply);
       setFetchCount(fetchCount + 1);
-    } catch (error) {
+      } catch (error) {
       console.log("some error in fetching", error);
+      if (editingMessage !== null) {
+        setEditingMessage(null);
+        setEditingIndex(null);
+        setPendingEdit(null);
+      }
     }
 
     setloading(false);
@@ -79,17 +103,49 @@ export default function ChatWindow() {
         }
       ]);
     } else if (prompt && reply) {
-      setPrevChats((prevChats) => [
-        ...prevChats,
-        {
-          role: "user",
-          content: prompt
-        },
-        {
-          role: "assistant",
-          content: reply
+      if (pendingEdit !== null) {
+        const newChats = [...prevChats];
+        const displayedArray = prevChats.slice(1).slice(0,-1);
+        const targetUserMessage = displayedArray[pendingEdit.editIndex];
+        let actualUserIndex = -1;
+        for (let i = 1; i < prevChats.length; i += 2) { 
+          if (prevChats[i].content === targetUserMessage.content && prevChats[i].role === 'user') {
+            actualUserIndex = i;
+            break;
+          }
         }
-      ]);
+        const actualAssistantIndex = actualUserIndex + 1;
+        newChats.splice(actualUserIndex);
+        // Add the new user message and assistant response
+        newChats.push(
+          {
+            role: "user",
+            content: prompt
+          },
+          {
+            role: "assistant",
+            content: reply
+          }
+        );
+        setPrevChats(newChats);
+        // Clear edit state after successful edit
+        setEditingMessage(null);
+        setEditingIndex(null);
+        setPendingEdit(null);
+      } else {
+        // Normal new message
+        setPrevChats((prevChats) => [
+          ...prevChats,
+          {
+            role: "user",
+            content: prompt
+          },
+          {
+            role: "assistant",
+            content: reply
+          }
+        ]);
+      }
     }
     setPrompt("");
   }, [reply, fetchCount]);
@@ -211,23 +267,40 @@ export default function ChatWindow() {
       <Chat />
       
       <div className="chatinput px-4 lg:px-0">
+        {editingMessage && (
+          <div className="text-center mb-2">
+            <span className="text-sm text-gray-600 bg-yellow-100 px-3 py-1 rounded-full">
+              <i className="fa-solid fa-edit mr-1"></i>
+              Editing message
+            </span>
+          </div>
+        )}
         <div className="text-center relative">
           <input 
             value={prompt} 
             onKeyDown={(e)=>{if(e.key==="Enter"){getreply()}}} 
             onChange={(e)=>setPrompt(e.target.value)} 
-            className="text-base lg:text-lg rounded-[4rem] p-3 lg:p-4 pl-4 lg:pl-6 pr-12 lg:pr-17 mb-5 w-full lg:w-[70%] bg-white text-black focus:outline-none focus:ring-[0.2px] shadow-md shadow-black-700" 
+            className={`text-base lg:text-lg rounded-[4rem] p-3 lg:p-4 pl-4 lg:pl-6 mb-5 w-full lg:w-[70%] bg-white text-black focus:outline-none focus:ring-[0.2px] shadow-md shadow-black-700 ${editingMessage ? 'pr-14 lg:pr-18' : 'pr-12 lg:pr-17'}`} 
             type="text" 
-            placeholder="Enter your Symptom" 
+            placeholder={editingMessage ? "Edit your message..." : "Enter your Symptom"} 
             name="" 
             id="" 
           />
+          {editingMessage && (
+            <button 
+              onClick={cancelEdit}
+              className="absolute right-8 lg:right-[calc(15%+1rem)] top-1/2 transform -translate-y-1/2 z-10"
+              title="Cancel edit"
+            >
+              <i className="text-red-600 hover:text-red-800 cursor-pointer fa-solid fa-times text-lg"></i>
+            </button>
+          )}
           <button 
             onClick={getreply} 
             disabled={!prompt.trim()} 
             className={`absolute right-4 lg:right-[17.5%] top-1/2 transform -translate-y-1/2 ${!prompt.trim() ? "opacity-50 cursor-not-allowed" : ""}`}
           >
-            <i className="text-green-900 hover:text-green-700 cursor-pointer fa-solid fa-paper-plane"></i>
+            <i className={`text-green-900 hover:text-green-700 cursor-pointer fa-solid ${editingMessage ? 'fa-check' : 'fa-paper-plane'}`}></i>
           </button>
           <ScaleLoader color="black" loading={loading} />
         </div>
