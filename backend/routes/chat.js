@@ -57,7 +57,7 @@ router.delete("/thread/:threadId",async (req,res)=>{
 });
 
 router.post("/chat",async (req,res)=>{
-    const {threadId,message}=req.body;
+    const {threadId,message,isEdit,editIndex,originalMessage}=req.body;
     if(!threadId || !message){
         res.status(400).json({error:"required fields not found"});
     }
@@ -74,7 +74,27 @@ router.post("/chat",async (req,res)=>{
                     {role:"user",content:message}]
             })
         }else{
-            thread.messages.push({role:"user",content:message})
+            if(isEdit && editIndex !== null && originalMessage){
+                // Handle message editing - rollback to before the edited message and its response
+                const displayedArray = thread.messages.slice(1).slice(0,-1);
+                const targetUserMessage = displayedArray[editIndex];
+                
+                // Find the actual index of this user message in the full messages array
+                let userMessageIndex = -1;
+                for (let i = 1; i < thread.messages.length; i += 2) {
+                  if (thread.messages[i].content === targetUserMessage.content && thread.messages[i].role === 'user') {
+                    userMessageIndex = i;
+                    break;
+                  }
+                }
+                const assistantMessageIndex = userMessageIndex + 1;               
+                thread.messages.splice(userMessageIndex);
+                // Add the new user message
+                thread.messages.push({role:"user",content:message})
+            } else {
+                // Normal new message
+                thread.messages.push({role:"user",content:message})
+            }
         }
         const assistantreply= await getresponsefromai(thread.messages);
         console.log("assistant reply is",assistantreply);
