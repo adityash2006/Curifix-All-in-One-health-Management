@@ -55,6 +55,15 @@ export default function Home() {
           >
             Explore
           </button>
+          <Link to="/health-plan">
+            <button
+              className="cursor-pointer bg-[#F5F5EB] text-black font-semibold px-6 py-2
+  rounded-[15px] opacity-100 border-solid border-[#BEcf4c]
+  border-t-[2px] hover:bg-[#D4D4D4] border-r-[2px] border-l-[2px] border-b-[4px]"
+            >
+              Personalized Health Plan
+            </button>
+          </Link>
         </div>
       </div>
 
