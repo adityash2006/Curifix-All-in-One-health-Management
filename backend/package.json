@@ -1,1 +1,1 @@
-{"type":"module","scripts":{"dev":"node server.js"},"dependencies":{"@langchain/google-genai":"^0.2.18","bcryptjs":"^3.0.2","cors":"^2.8.5","dotenv":"^17.2.1","express":"^5.1.0","jsonwebtoken":"^9.0.2","mongoose":"^8.17.1","nodemon":"^3.1.10"}}
+{"type":"module","scripts":{"dev":"node server.js"},"dependencies":{"@langchain/google-genai":"^0.2.18","bcryptjs":"^3.0.2","cors":"^2.8.5","dotenv":"^17.2.1","express":"^5.1.0","jsonwebtoken":"^9.0.2","mongoose":"^8.17.1","nodemailer":"^6.10.1","nodemon":"^3.1.10"}}
