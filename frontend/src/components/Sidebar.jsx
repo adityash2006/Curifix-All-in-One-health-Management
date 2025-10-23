@@ -1,148 +1,94 @@
-import { useContext, useEffect } from "react";
-import { MyContext } from "./MyContext.jsx";
-import { v1 as uuidv1 } from "uuid";
+import { Link } from "react-router-dom";
 
-export default function Sidebar() {
-  const {
-    prevChats,
-    allthreads,
-    setallthreads,
-    setPrevChats,
-    newChat,
-    setNewChat,
-    prompt,
-    setPrompt,
-    reply,
-    setReply,
-    currthreadid,
-    setcurrthreadid,
-    sidebarOpen,
-    setSidebarOpen,
-  } = useContext(MyContext);
+// Close Icon
+const CloseIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-7 w-7"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+);
 
-  const getallthreads = async () => {
-    try {
-      let a = await fetch("http://localhost:3000/api/thread");
-      let b = await a.json();
-      const filter = b.map((chat) => ({
-        id: chat.threadId,
-        title: chat.title,
-      }));
-      setallthreads(filter);
-    } catch (error) {
-      console.log("couldnt fetch all the threads", error);
-    }
-  };
-
-  useEffect(() => {
-    getallthreads();
-  }, [currthreadid]);
-
-  const newcha = () => {
-    setPrevChats([]);
-    setReply(null);
-    setNewChat(true);
-    setPrompt("");
-    setcurrthreadid(uuidv1());
-    console.log("New chat created");
-  };
-  const changethread = async (newthreadid) => {
-    setcurrthreadid(newthreadid);
-
-    try {
-      let a = await fetch(`http://localhost:3000/api/thread/${newthreadid}`);
-      let b = await a.json();
-      console.log(b);
-      setPrevChats(b);
-      setReply(null);
-      setNewChat(false);
-    } catch (error) {
-      console.log("Error changing thread:", error);
-    }
-  };
-
-  const deletethread = async (threadid) => {
-    try {
-      let a = await fetch(`http://localhost:3000/api/thread/${threadid}`, {
-        method: "DELETE",
-      });
-      let b = await a.json();
-      console.log(b);
-      setallthreads((prev) => prev.filter((chat) => chat.id !== threadid));
-      if (currthreadid === threadid) {
-        newcha();
-      }
-    } catch (error) {
-      console.log("Error deleting thread:", error);
-    }
-  };
-
+// This is the Sidebar component for your main navigation (Home, Login, etc.)
+// It is controlled by the `isOpen` and `toggleSidebar` props from Navbar.jsx
+export default function Sidebar({ isOpen, toggleSidebar }) {
   return (
     <>
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-[#e7e6e1] bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-      
-      <div className={`
-        fixed lg:relative top-0 left-0 z-50 lg:z-auto
-        side w-80 lg:w-85 bg-white h-screen
-        transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-        flex flex-col
-      `}>
-        <div className="pr-6 pl-3 py-6 flex justify-between items-center">
-          <i className="text-xl text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300 fa-solid fa-briefcase-medical"></i>
-          <i className="text-xl text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300 fa-solid fa-pen-to-square"></i>
-          {/* Close button for mobile */}
+      {/* Overlay */}
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-30 transition-opacity duration-300 ease-in-out
+          ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
+        `}
+        onClick={toggleSidebar}
+        aria-hidden="true"
+      />
+
+      {/* Sidebar Panel */}
+      <div
+        className={`fixed top-0 right-0 w-72 h-full bg-white shadow-xl z-40
+          transform transition-transform duration-300 ease-in-out
+          ${isOpen ? "translate-x-0" : "translate-x-full"}
+        `}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Main menu"
+      >
+        {/* Sidebar Header */}
+        <div className="flex justify-between items-center p-4 border-b">
+          <h2 className="text-xl font-semibold text-gray-800">Menu</h2>
           <button
-            className="lg:hidden text-xl text-gray-700 hover:text-gray-900"
-            onClick={() => setSidebarOpen(false)}
+            onClick={toggleSidebar}
+            className="p-1 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
+            aria-label="Close menu"
           >
-            <i className="fa-solid fa-times"></i>
-          </button>
-        </div>
-        
-        <div className="mb-5 mx-5 flex justify-center items-center text-center text-black border-1 cursor-pointer rounded-lg border-white hover:border-black">
-          <button className="cursor-pointer w-full py-2" onClick={newcha}>
-            New Chat
+            <CloseIcon />
           </button>
         </div>
 
-        <div className="p-5 history flex-1 overflow-y-auto">
-          <ul className="cursor-pointer text-black">
-            {allthreads?.map((chat, idx) => (
-              <li
-                onClick={(e) => {
-                  changethread(chat.id);
-                  // Close sidebar on mobile after selecting chat
-                  if (window.innerWidth < 1024) {
-                    setSidebarOpen(false);
-                  }
-                }}
-                key={idx}
-                className={`
-                  ${chat.id === currthreadid ? "highlighted" : ""}
-                  p-2 rounded hover:bg-gray-100 flex justify-between items-center
-                  truncate
-                `}
-              >
-                <span className="truncate flex-1">{chat.title}</span>
-                <i
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deletethread(chat.id);
-                  }}
-                  className="fa-solid fa-trash ml-2 hover:text-red-500"
-                ></i>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Sidebar Links */}
+        <nav className="flex flex-col p-4 space-y-2">
+          <Link
+            to="/"
+            className="text-lg font-medium text-gray-700 hover:bg-gray-100 p-3 rounded-lg"
+            onClick={toggleSidebar} // Close sidebar on click
+          >
+            Home
+          </Link>
+          <Link
+            to="/signup"
+            className="text-lg font-medium text-gray-700 hover:bg-gray-100 p-3 rounded-lg"
+            onClick={toggleSidebar} // Close sidebar on click
+          >
+            Signup
+          </Link>
+          <Link
+            to="/login"
+            className="text-lg font-medium text-gray-700 hover:bg-gray-100 p-3 rounded-lg"
+            onClick={toggleSidebar} // Close sidebar on click
+          >
+            Login
+          </Link>
+          
+          {/* Mobile Chat Button */}
+          <div className="pt-4">
+            <Link
+              to="/chat"
+              className="block w-full text-center bg-[#E9FF5D] text-black font-semibold px-6 py-3 
+              rounded-lg border-solid border-[#BEcf4c] border-b-4
+              hover:bg-[#D4FF3D] transition-colors duration-200"
+              onClick={toggleSidebar} // Close sidebar on click
+            >
+              Chat with Ai
+            </Link>
+          </div>
+        </nav>
       </div>
     </>
   );
 }
+

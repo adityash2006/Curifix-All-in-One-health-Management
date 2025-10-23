@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar"; // <-- DELETE THIS LINE
 import TiltCard from "../components/Scroll";
 import {
   Card1,
@@ -12,7 +12,9 @@ import Footer from "../components/Footer";
 export default function Home() {
   return (
     <>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */} {/* <-- DELETE THIS LINE */}
+      
+      {/* All of your other page content is correct */}
       <div className="flex flex-col items-center justify-center pt-8 md:pt-12 lg:pt-16 bg-white px-4 md:px-8 w-full">
         <div className="w-full flex flex-col items-center justify-center mb-6 md:mb-8">
           <h1
@@ -117,3 +119,4 @@ export default function Home() {
     </>
   );
 }
+
