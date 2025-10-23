@@ -20,6 +20,9 @@ return  (
           <Link to="/" >Home</Link>
         </li>
         <li className="hover:bg-[#D4D4D5] rounded-md font-bold cursor-pointer px-5 pr-5 py-2 ">
+          <Link to="/contact" className="">Contact</Link>
+        </li>
+        <li className="hover:bg-[#D4D4D5] rounded-md font-bold cursor-pointer px-5 pr-5 py-2 ">
           <Link to="/signup" className="">Signup</Link>
         </li>
         <li className="hover:bg-[#D4D4D4] rounded-md font-bold cursor-pointer px-5 py-2 ">
