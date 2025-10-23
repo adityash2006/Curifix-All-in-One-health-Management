@@ -1,0 +1,56 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      # ---- Backend ----
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
+
+      # ---- Frontend ----
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Build Frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # ---- Tests (optional) ----
+      - name: Run Backend Tests
+        if: hashFiles('backend/**/*.test.*') != ''
+        working-directory: ./backend
+        run: npm test
+
+      - name: Run Frontend Tests
+        if: hashFiles('frontend/**/*.test.*') != ''
+        working-directory: ./frontend
+        run: npm test
+
+      # ---- Deployment placeholder ----
+      - name: Deploy (Optional)
+        if: github.ref == 'refs/heads/main'
+        run: echo "Add your deployment step here (e.g., Docker build, Vercel, or Render)"

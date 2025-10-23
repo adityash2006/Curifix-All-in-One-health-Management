@@ -1,4 +1,4 @@
-import "../chat.css"
+import "../Chat.css";
 import { MyContext } from "./MyContext";
 import { useContext,useEffect,useState,useRef } from "react";
 import ReactMarkdown from 'react-markdown';

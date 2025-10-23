@@ -1,5 +1,6 @@
 import express from "express";
 import Thread from "../models/Thread.js";
+import auth from "../middleware/auth.js";
 const router=express.Router();
 import { getresponsefromai } from "../utils/ai.js";
 
