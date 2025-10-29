@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom"
+import { Link,NavLink } from "react-router-dom"
 export default function Navbar() {
 return  (
     <>
@@ -10,24 +10,22 @@ return  (
                 <img className="inline h-14 mr-4" src="logo.png" alt="Curifix Logo" />
             <li className="inline" >
   
-          <Link to="/" className=" italic text-3xl">Curifix</Link>
+          <NavLink to="/" className={({isActive})=>` italic text-3xl `}>Curifix</NavLink>
         </li>
       </ul>
       </div>
       <div className="hidden md:block">
       <ul className="flex  start     rounded-xl font-black bg-[rgb(242,242,231)]  ">
          <li className="rounded-md h-full font-bold cursor-pointer hover:bg-[#D4D4D4] px-5 py-2" >
-          <Link to="/" >Home</Link>
+          <NavLink className={({isActive})=>` ${isActive ? "underline underline-offset-2":""}`} to="/" >Home</NavLink>
         </li>
         <li className="hover:bg-[#D4D4D5] rounded-md font-bold cursor-pointer px-5 pr-5 py-2 ">
-          <Link to="/signup" className="">Signup</Link>
+          <NavLink to="/signup" className={({isActive})=>` ${isActive ? "underline underline-offset-2":""}`}>Signup</NavLink>
         </li>
         <li className="hover:bg-[#D4D4D4] rounded-md font-bold cursor-pointer px-5 py-2 ">
-          <Link to="/login" className="">Login</Link>
+          <NavLink to="/login" className={({isActive})=>` ${isActive ? "underline underline-offset-2":""}`}>Login</NavLink>
         </li>
 
-        
-       
       </ul>
       </div>
       <div>

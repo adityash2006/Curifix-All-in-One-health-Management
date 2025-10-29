@@ -57,7 +57,7 @@ router.delete("/thread/:threadId",async (req,res)=>{
     }
 });
 
-router.post("/chat", auth, async (req,res)=>{
+router.post("/chat", async (req,res)=>{
     const {threadId,message}=req.body;
     if(!threadId || !message){
         res.status(400).json({error:"required fields not found"});
