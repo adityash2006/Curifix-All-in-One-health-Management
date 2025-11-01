@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { MyContext } from "./MyContext.jsx";
+import { Link, NavLink } from "react-router-dom";
 import { v1 as uuidv1 } from "uuid";
 
 export default function Sidebar() {
@@ -104,6 +105,23 @@ export default function Sidebar() {
           >
             <i className="fa-solid fa-times"></i>
           </button>
+        </div>
+        {/* Mobile nav links - shown only on small screens inside sidebar */}
+        <div className="lg:hidden px-4 mb-4">
+          <ul className="space-y-2">
+            <li className="px-3 py-2 rounded hover:bg-gray-100">
+              <NavLink to="/" className={({isActive})=> isActive? 'font-semibold underline' : ''} onClick={()=> setSidebarOpen(false)}>Home</NavLink>
+            </li>
+            <li className="px-3 py-2 rounded hover:bg-gray-100">
+              <NavLink to="/signup" className={({isActive})=> isActive? 'font-semibold underline' : ''} onClick={()=> setSidebarOpen(false)}>Signup</NavLink>
+            </li>
+            <li className="px-3 py-2 rounded hover:bg-gray-100">
+              <NavLink to="/login" className={({isActive})=> isActive? 'font-semibold underline' : ''} onClick={()=> setSidebarOpen(false)}>Login</NavLink>
+            </li>
+            <li className="px-3 py-2 rounded hover:bg-gray-100">
+              <Link to="/chat" onClick={()=> setSidebarOpen(false)} className="font-semibold">Chat with Ai</Link>
+            </li>
+          </ul>
         </div>
         
         <div className="mb-5 mx-5 flex justify-center items-center text-center text-black border-1 cursor-pointer rounded-lg border-white hover:border-black">
