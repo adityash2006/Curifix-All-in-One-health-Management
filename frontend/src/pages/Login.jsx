@@ -69,7 +69,9 @@ export default function Login() {
               <p className="mt-2 text-gray-600">Sign in to your healthcare dashboard</p>
             </div>
             <LoginForm />
-            <div className="flex justify-center mt-6 text-center">
+
+            
+            {/* <div className="flex justify-center mt-6 text-center">
             <GoogleLogin
   onSuccess={(credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
@@ -81,7 +83,7 @@ export default function Login() {
   }}
 />
 
-              </div>
+              </div> */}
           </div>
         </div>
       </div>

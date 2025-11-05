@@ -29,7 +29,7 @@ export default function Home() {
               className="instrument font-bold tracking-tighter text-[#303030]"
               style={{ fontSize: "clamp(2rem, 9vw, 4.3rem)" }}
             >
-              Health Companion
+            Health Companion
             </h1>
             <span
               className="italic px-3 sm:px-2 rounded-lg bg-[rgb(233,255,91)] text-[#303030]"

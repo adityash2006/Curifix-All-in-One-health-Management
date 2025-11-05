@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-
+import Dashboard from "../components/Dashboard";
  
 export default function Signup() {
 
@@ -70,7 +70,7 @@ export default function Signup() {
             </div>
             <SignupForm />
             
-            <div className="flex justify-center mt-6 text-center">
+            {/* <div className="flex justify-center mt-6 text-center">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
                   const decoded = jwtDecode(credentialResponse.credential);
@@ -81,7 +81,7 @@ export default function Signup() {
                   console.log("Google Signup Failed");
                 }}
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

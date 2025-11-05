@@ -4,8 +4,10 @@ import { MyContext } from "./MyContext.jsx";
 import { ScaleLoader } from "react-spinners";
 import Chat from './AiChat.jsx';
 import { Link } from "react-router-dom";
+import { UserButton,useAuth } from "@clerk/clerk-react";
 
 export default function ChatWindow() {
+ const{ userId} =useAuth();
   const { prompt,setNewChat, setPrompt, reply, setReply, currthreadid, setcurrthreadid, prevChats, setPrevChats, sidebarOpen, setSidebarOpen } = useContext(MyContext);
   const [loading, setloading] = useState(false);
   const [fetchCount, setFetchCount] = useState(0);
@@ -30,6 +32,7 @@ export default function ChatWindow() {
       body: JSON.stringify({
         message: prompt,
         threadId: currthreadid,
+        userid:userId
       }),
     };
 
@@ -37,13 +40,12 @@ export default function ChatWindow() {
       console.log("req is hit ig");
       let response = await fetch("http://localhost:3000/api/chat", options);
       let g = await response.json();
-      console.log(g.reply);
+      
       setReply(g.reply);
       setFetchCount(fetchCount + 1);
     } catch (error) {
       console.log("some error in fetching", error);
     }
-
     setloading(false);
   };
 
@@ -134,7 +136,7 @@ export default function ChatWindow() {
                 </Link>
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
                   <i className="fa-solid fa-info-circle mr-2"></i>
-                  About Curifix
+                  About Curifix Ai
                 </a>
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
                   <i className="fa-solid fa-question-circle mr-2"></i>
@@ -156,12 +158,12 @@ export default function ChatWindow() {
         {/* Profile button with dropdown */}
         <div className="relative dropdown-container">
           <div 
-            className="bg-blue-400 rounded-full h-8 w-8 lg:h-10 lg:w-10 flex items-center justify-center cursor-pointer hover:bg-blue-500 transition-all duration-200 hover:scale-105"
-            onMouseEnter={() => setProfileDropdownOpen(true)}
-            onMouseLeave={() => setProfileDropdownOpen(false)}
-            onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+            className=" rounded-full h-8 w-8 lg:h-10 lg:w-10 flex items-center justify-center cursor-pointer hover:bg-blue-500 transition-all duration-200 hover:scale-105"
+            // onMouseEnter={() => setProfileDropdownOpen(true)}
+            // onMouseLeave={() => setProfileDropdownOpen(false)}
+            // onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
           >
-            <i className="fa-solid fa-user text-white"></i>
+            <UserButton/>
           </div>
           
           {/* Profile Dropdown */}

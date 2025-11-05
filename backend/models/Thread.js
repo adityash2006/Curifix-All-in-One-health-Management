@@ -15,12 +15,13 @@ const MessageSchema=new mongoose.Schema({
     }
 });
 
-const ThreadSchema=new mongoose.Schema({
+export const ThreadSchema=new mongoose.Schema({
     threadId:{
         type:String,
         required:true,
         unique:true
     },
+     userId: { type: String, required: true },
     title:{
         type:String,
         default:"New Thread"

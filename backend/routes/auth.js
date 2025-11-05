@@ -3,26 +3,19 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const router = express.Router();
-
-// Generate JWT token
 const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET || 'your-secret-key', {
     expiresIn: '7d'
   });
 };
-
-// Register route
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-
-    // Check if user already exists
+    const { name, email, password } = req.body; 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'User already exists' });
     }
 
-    // Create new user
     const user = new User({
       name,
       email,

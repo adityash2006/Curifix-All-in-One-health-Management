@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { MyContext } from "./MyContext.jsx";
 import { v1 as uuidv1 } from "uuid";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function Sidebar() {
   const {
@@ -19,10 +20,19 @@ export default function Sidebar() {
     sidebarOpen,
     setSidebarOpen,
   } = useContext(MyContext);
-
+  const{ userId} =useAuth();
+  const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        clerkUserId:userId
+      }),
+    };
   const getallthreads = async () => {
     try {
-      let a = await fetch("http://localhost:3000/api/thread");
+      let a = await fetch("http://localhost:3000/api/thread",options);
       let b = await a.json();
       const filter = b.map((chat) => ({
         id: chat.threadId,
@@ -52,7 +62,7 @@ export default function Sidebar() {
     try {
       let a = await fetch(`http://localhost:3000/api/thread/${newthreadid}`);
       let b = await a.json();
-      console.log(b);
+     
       setPrevChats(b);
       setReply(null);
       setNewChat(false);

@@ -4,6 +4,8 @@ import ChatWindow from '../components/ChatWindow';
 import { MyContext } from '../components/MyContext.jsx';
 import {v1 as uuidv1} from 'uuid';
 import Navbar from '../components/Navbar.jsx';
+import { SignIn,SignedIn } from '@clerk/clerk-react';
+
 
 function Chat() {
   const [prompt,setPrompt]=useState("");
@@ -17,7 +19,7 @@ function Chat() {
   const providerValues={prevChats,allthreads,setallthreads,setPrevChats,newChat,setNewChat,prompt,setPrompt,reply,setReply,currthreadid,setcurrthreadid,sidebarOpen,setSidebarOpen};
 
   return (
-    <div className='app flex h-screen overflow-hidden'>
+    <div className='app flex h-screen w-full overflow-hidden'>
       <MyContext.Provider value={providerValues}>
       <Sidebar />
       <ChatWindow />

@@ -1,18 +1,36 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import "dotenv/config"
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import cors from "cors";
+import http from "http";
 import { getresponsefromai } from "./utils/ai.js";
+import { Server } from "socket.io";
 import mongoose from "mongoose";
 import chatroutes from "./routes/chat.js";
-import authroutes from "./routes/auth.js";
+// import authroutes from "./routes/auth.js";
+import saveUser from "./routes/saveUserClerk.js"
+// import clerkWebhook from "./routes/clerk.js";
+import { connectToSocket } from "./utils/socketManager.js";
+import wardRoutes from "./routes/wardRoutes.js"
+import fileUploadRouter from "./routes/docs.js";
 
 const app = express();
-
-app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "*", // change this to your frontend origin in production
+  methods: ["GET", "POST","DELETE"],
+  credentials: true,
+}));
+app.use(express.json(urlencoded({ extended: true })));
 app.use("/api",chatroutes);
-app.use("/api/auth", authroutes);
+app.use("/api/users", saveUser);
+app.use("/api/wards", wardRoutes);
+app.use("/api/docs", fileUploadRouter);
+
+
+const server = http.createServer(app);
+const io = connectToSocket(server);
+io.on("connection", (socket) => {
+  console.log("🔌 A user connected:", socket.id);
+});
 
 const Connectmongo = async () => {
   try {
@@ -23,15 +41,15 @@ const Connectmongo = async () => {
   }
 };
 
+
 app.post("/chat",async(req,res)=>{
   console.log("req is hit");
   let b=await getresponsefromai(req.body.quet);
   console.log(b);
   res.send(b);
-
 });
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("Server is running on port 3000");
   Connectmongo();
 });

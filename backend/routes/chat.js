@@ -1,6 +1,8 @@
 import express from "express";
 import Thread from "../models/Thread.js";
 import auth from "../middleware/auth.js";
+import User from "../models/User.js";
+
 const router=express.Router();
 import { getresponsefromai } from "../utils/ai.js";
 
@@ -17,10 +19,12 @@ router.post("/testing",async(req,res)=>{
     }
 });
 
-router.get("/thread",async (req,res)=>{
+router.post("/thread",async (req,res)=>{
+    let {clerkUserId}=req.body;
     try {
-        let th=await Thread.find({}).sort({updatedAt:-1});
-        //updated at -1 means descending order
+        let th=await Thread.find({userId:clerkUserId}).sort({updatedAt:-1});
+       
+        
         res.json(th);
         
     } catch (error) {
@@ -58,15 +62,18 @@ router.delete("/thread/:threadId",async (req,res)=>{
 });
 
 router.post("/chat", async (req,res)=>{
-    const {threadId,message}=req.body;
+    const {threadId,message,userid}=req.body;
+     
     if(!threadId || !message){
         res.status(400).json({error:"required fields not found"});
     }
     try {
         let thread=await Thread.findOne({threadId});
+        // const threads = await Thread.find({ userId: clerkUserId });
         if(!thread){
             //create a new thread
             thread=new Thread({
+                userId: userid,
                 threadId,
                 title:message,
                 messages:[

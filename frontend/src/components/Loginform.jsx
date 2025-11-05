@@ -56,7 +56,7 @@ export function LoginForm() {
           <input
             id="remember"
             type="checkbox"
-            className="w-4 h-4 text-black text-lime-500 bg-white border-gray-300 rounded focus:ring-lime-400/20"
+            className="w-4 h-4 text-lime-500 bg-white border-gray-300 rounded focus:ring-lime-400/20"
           />
           <label htmlFor="remember" className="text-sm text-gray-600">
             Remember me

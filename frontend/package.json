@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.53.4",
+    "@clerk/themes": "^2.4.30",
     "@react-oauth/google": "^0.12.2",
+    "axios": "^1.13.2",
     "framer-motion": "^12.23.12",
     "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.552.0",
     "motion": "^12.23.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -23,6 +27,7 @@
     "rehype-highlight": "^7.0.2",
     "rehype-pretty-code": "^0.14.1",
     "shiki": "^3.9.2",
+    "socket.io-client": "^4.8.1",
     "sweetalert2": "^11.22.4",
     "tailwindcss": "^4.1.12",
     "uuid": "^11.1.0"

@@ -51,9 +51,7 @@ export default function AiChat() {
     const handleSpeak = (text) => {
         if (!text) return;
 
-        // Stop any ongoing speech
         window.speechSynthesis.cancel();
-
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.rate = 1; // normal speed
         utterance.pitch = 1; // normal pitch
@@ -68,7 +66,7 @@ export default function AiChat() {
             </div>
             }
 
-            <div ref={chatRef} className="chats text-center mx-4 sm:mx-8 md:mx-16 lg:mx-20 xl:mx-30 2xl:mx-50">
+            <div ref={chatRef} className="chats text-center mx-4 sm:mx-8 md:mx-16 lg:mx-20 xl:mx-30 ">
                 {
                     prevChats?.slice(1).slice(0,-1).map((chat,idx)=>
                         <div className={chat.role==="user"?"userprompt":"aiprompt"} key={idx}>
