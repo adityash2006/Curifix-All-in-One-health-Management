@@ -2,7 +2,6 @@ import express from "express";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import { Document } from "../models/Document.js";
-import { requireAuth } from "@clerk/express";
 
 const router = express.Router();
 
@@ -27,13 +26,13 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-// 📤 Upload Route
+// Upload Route
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
     const { userId } = req.body;
     const result = await cloudinary.uploader.upload(req.file.path, {
       resource_type: "image",
-      type: "authenticated"
+      type: "private"
     });
 
     const doc = await Document.create({
@@ -47,11 +46,9 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-// 📄 Get all user's documents
 
 
 
-// 👁️ Generate temporary signed URL (5 min)
 router.post("/view/:id", async (req, res) => {
   try {
     const { userId } = req.body;
@@ -60,13 +57,17 @@ router.post("/view/:id", async (req, res) => {
 console.log("View doc",doc);
     if (!doc || doc.userId !== userId)
       return res.status(403).json({ message: "Access denied" });
-
-    const url = cloudinary.url(doc.publicId, {
-      type: "authenticated",
+const expiry = Math.floor(Date.now() / 1000) + 100; //100 seconds from now
+console.log("expires_at: some time", expiry);
+const format = doc.name.split('.').pop();
+    const url = cloudinary.utils.private_download_url(doc.publicId,format ,{
+      type: "private",
       resource_type: "image",
       sign_url: true,
-      expires_at: Math.floor(Date.now() / 1000) + 300 // 5 mins
+      expires_at: expiry ,
+      version: Date.now() 
     });
+    
 
     res.json({ url });
   } catch (err) {
@@ -75,7 +76,7 @@ console.log("View doc",doc);
 });
 
 
-// 🗑️ Delete Document
+//  Delete 
 router.delete("/:id", async (req, res) => {
   try {
     const { userId } = req.body;

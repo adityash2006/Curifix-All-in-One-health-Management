@@ -13,7 +13,7 @@ export default function Dashboard() {
     <SignedIn>
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className="w-64 bg-white border-r border-gray-200 p-6">
+      <div className="w-69 bg-white border-r border-gray-200 p-6">
         <div className="flex items-center gap-2 mb-8">
           <div className="w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center">
             <span className="text-white text-xs font-semibold">C</span>

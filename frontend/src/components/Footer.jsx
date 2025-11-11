@@ -40,7 +40,7 @@ export default function Footer() {
   ];
  
   return (
-    <footer className="relative  bg-[#e9ff58] text-black shadow-2xl py-16 px-6 mt-24 overflow-hidden">
+    <footer className="relative  bg-[#e9ff58] text-black shadow-2xl py-16 px-6  overflow-hidden">
       {/* Floating icons in background */}
       {icons.map(({ icon: IconComp, className, style }, i) => (
         <motion.div

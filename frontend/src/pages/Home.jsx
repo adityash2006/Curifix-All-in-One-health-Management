@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import TiltCard from "../components/Scroll";
+import ColorBends from "../components/Colorblend";
 import {
   Card1,
   StyledCard,
@@ -8,10 +9,12 @@ import {
   VideoCallCard,
 } from "../components/cards";
 import Footer from "../components/Footer";
+import SmoothScroll from "../utils/Scroll";
 
 export default function Home() {
   return (
     <>
+    <SmoothScroll>
     
       <Navbar></Navbar>
       <div className="flex flex-col items-center justify-center pt-8 md:pt-12 lg:pt-16 bg-white px-4 md:px-8 w-full">
@@ -92,6 +95,22 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
+       <div className="bg-black h-screen mt-20">
+        <ColorBends
+  colors={["#c9ef4e", "#d3f86a"]}
+  rotation={100}
+  speed={0.3}
+  scale={1.2}
+  frequency={1}
+  warpStrength={1}
+  mouseInfluence={0.8}
+  parallax={0.6}
+  noise={0.08}
+  transparent
+/>
+
+      </div>
 
       <Card1></Card1>
       <CheckDiseaseCard></CheckDiseaseCard>
@@ -116,7 +135,9 @@ export default function Home() {
           />
         </div>
       </div>
+     
       <Footer></Footer>
+      </SmoothScroll>
     </>
   );
 }

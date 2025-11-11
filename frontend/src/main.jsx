@@ -16,7 +16,8 @@ import Nearbydoc from './components/features/Nearbydoc.jsx'
 import Store from './components/features/Store.jsx'
 import Video from './components/features/VideoCall.jsx'
 import NotFound from './components/Notfound.jsx'
-
+import NearbyHospitalsMap from './components/features/Hospital.jsx'
+import SmoothScroll from './utils/Scroll.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -25,8 +26,10 @@ const router=createBrowserRouter(
     {/* <Route path="/login" element={<Login />} />  */}
        {/* <Route path="/signup" element={<Signup />} />  */}
     <Route path="/login" element={<Loginuser />} /> 
-    <Route path="/signup" element={<Signupuser />} /> 
+    <Route path="/signup" element={<Signupuser />} />
+    
      <Route path="/" element={<Home />} />
+    
       <Route path="user" element={<Dashboard/>}>
         <Route path="dashboard" element={<Dash/>}></Route>
         <Route path="aidoc" element={<Chat/>}></Route>
@@ -48,7 +51,9 @@ if (!PUBLISHABLE_KEY) {
 createRoot(document.getElementById('root')).render(
  
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      
       <RouterProvider router={router}/>
+     
      </ClerkProvider>
   
 )
