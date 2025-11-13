@@ -118,9 +118,9 @@ export default function Footer() {
           variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
         >
           <h2 className="text-xl font-semibold mb-4 text-black">Contact</h2>
-          <p className="text-base flex items-center mb-1 max-w-xs">📍 123 Health Street, City</p>
+          <p className="text-base flex items-center mb-1 max-w-xs">📍 Chitkara University, Rajpura</p>
           <p className="text-base flex items-center mb-1 max-w-xs">📞 +91 98765 43210</p>
-          <p className="text-base flex items-center max-w-xs">✉ support@hospitalai.com</p>
+          <p className="text-base flex items-center max-w-xs">✉ support@curifix.com</p>
         </motion.div>
 
         {/* Social Media */}

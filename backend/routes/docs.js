@@ -2,6 +2,8 @@ import express from "express";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import { Document } from "../models/Document.js";
+import { ExtractTextAndGenerateSummary } from "../utils/textExtracter.js";
+import generateMedicalSummary from "../utils/medicalsummary.js";
 
 const router = express.Router();
 
@@ -38,16 +40,34 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     const doc = await Document.create({
       userId,
       name: req.file.originalname,
-      publicId: result.public_id
+      publicId: result.public_id,
     });
 
+    ExtractTextAndGenerateSummary(req.file,doc._id );
+    
     res.json(doc);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-
+router.get("/summarize/:id", async (req, res) => {
+  try {
+    console.log("Summarize route called");
+    
+    const doc = await Document.findById(req.params.id);
+    if (!doc) {
+      console.log("Document not found");
+      return res.status(404).json({ message: "Document not found" });
+    }
+    const a=await generateMedicalSummary(doc.document_content);
+    res.status(200).json({ summary: a } );
+  }
+     catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message });
+  }
+});
 
 router.post("/view/:id", async (req, res) => {
   try {

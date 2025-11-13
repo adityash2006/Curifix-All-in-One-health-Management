@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import TiltCard from "../components/Scroll";
 import ColorBends from "../components/Colorblend";
+import SplitText from "../components/Splittext";
 import {
   Card1,
   StyledCard,
@@ -10,6 +11,10 @@ import {
 } from "../components/cards";
 import Footer from "../components/Footer";
 import SmoothScroll from "../utils/Scroll";
+import { Card2 } from "../components/cards2";
+const handleAnimationComplete = () => {
+  console.log('All letters have animated!');
+};
 
 export default function Home() {
   return (
@@ -96,7 +101,7 @@ export default function Home() {
         </div>
       </div>
       
-       <div className="bg-black h-screen mt-20">
+       <div className="bg-white bg-gradient-to-b from-white bg-blend-color-burn via-green-600 to-white h-screen mt-20">
         <ColorBends
   colors={["#c9ef4e", "#d3f86a"]}
   rotation={100}
@@ -110,11 +115,37 @@ export default function Home() {
   transparent
 />
 
-      </div>
 
-      <Card1></Card1>
+      </div>
+      <div className="w-full items-center flex justify-center mt-20 ">
+        <h1 className="instrument  bg-gradient-to-r from-black via-red-900 to-gray-700
+ bg-clip-text text-transparent text-7xl font-bold z-10"></h1>
+      <SplitText
+  text="Services!"
+  className=" instrument text-[#6e7e05] text-7xl font-bold z-10"
+  delay={100}
+  duration={0.6}
+  ease="power3.out"
+  splitType="chars"
+  from={{ opacity: 0, y: 40 }}
+  to={{ opacity: 1, y: 0 }}
+  threshold={0.1}
+  rootMargin="-100px"
+  textAlign="center"
+  onLetterAnimationComplete={handleAnimationComplete}
+  
+/>
+</div>
+<div className="flex mt-20 justify-between">
+<Card1></Card1>
+
+      <Card2></Card2>
+</div>
+      
+      <div className="flex justify-between">
       <CheckDiseaseCard></CheckDiseaseCard>
       <VideoCallCard></VideoCallCard>
+      </div>
       <div className="lg:ml-42 instrument flex flex-col items-center justify-center min-h-screen/2 bg-white p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 w-full max-w-6xl">
           <StyledCard

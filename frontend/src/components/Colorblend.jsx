@@ -294,7 +294,7 @@ export default function ColorBends({
   
   <div ref={containerRef} className={`w-full h-full relative overflow-hidden ${className}`} style={style} >
     <div className="absolute inset-0 flex items-center justify-center">
-      <h1 className="instrument bg-gradient-to-r from-yellow-100 via-white to-lime-100
+      <h1 className="instrument  bg-gradient-to-r from-black via-red-900 to-gray-700
  bg-clip-text text-transparent text-7xl font-bold z-10">
        Health, Simplified.
       </h1>

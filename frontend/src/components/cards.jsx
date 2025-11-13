@@ -4,9 +4,9 @@ import { useState } from 'react'
 function Card1() {
 
   return (
-    <div className="flex items-center justify-center ">
-      <div className="w-full max-w-4xl  overflow-hidden md:flex md:flex-row flex-col-reverse  justify-between p-6 m-4 relative ">
-        <div className="flex-1 flex justify-center items-center p-4">
+    <div className="border-3 scale-85 m-4 border-dotted border-gray-300 rounded-3xl flex items-center justify-center  ">
+      <div className="w-full max-w-4xl  overflow-hidden md:flex md:flex-row flex-col-reverse  justify-between  m-4 relative ">
+        <div className="flex-1 flex justify-center items-center ">
           <img
             src="TakeYourDose.jpg"
             alt="A plate of healthy food including kiwi, oranges, and berries, along with a pill."
@@ -31,7 +31,7 @@ function Card1() {
           </li>
           </ul>
           
-         <button class="mt-10 bg-[#E9FF5D] text-black font-semibold px-6 py-2 
+         <button className="mt-10 bg-[#E9FF5D] text-black font-semibold px-6 py-2 
   rounded-[15px] border-solid border-[#BEcf4c] 
   border-t-[2px] cursor-pointer border-r-[2px] border-l-[2px] border-b-[4px] opacity-100">
   Get Started
@@ -77,7 +77,7 @@ const StyledCard = ({ title, description, imageSrc, buttonText, className, butto
 
 const VideoCallCard = () => {
   return (
-    <div className="flex items-center justify-center mb-20 p-4">
+    <div className=" border-3 scale-90 mx-4 border-dotted rounded-3xl border-gray-300 flex items-center justify-center mb-20 p-4">
       <div className="w-full max-w-5xl bg-white  overflow-hidden p-8 md:flex md:flex-row items-center relative  ">
 
        
@@ -114,32 +114,41 @@ const VideoCallCard = () => {
 
 const CheckDiseaseCard = () => {
     return (
-        <div className="flex mb-20 items-center justify-center p-4">
-          <div className="w-full max-w-5xl bg-white rounded-3xl  overflow-hidden p-8 flex md:flex-row flex-col items-center relative ">
-    
-            <div className="flex-1 flex justify-center md:justify-start items-center z-10 p-4">
-              <img
-                src="aisympt.jpg"
-                alt="An illustration representing checking symptoms"
-                className="w-full max-w-xs h-auto rounded-lg"
-              />
-            </div>
-             <div className="flex- flex flex-col text-right z-10 p-4">
-              <h1 className=" instrument text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-2 ">
-                Check Disease Based on Symptoms
-              </h1>
-              <p className="mt-3 text-sm sm:text-base text-gray-600 font-inter mb-6">
-                Input your symptoms and get a preliminary analysis of possible conditions.
-              </p>
-              <div className='text-right'>
-              <button className="px-5 cursor-pointer py-3 bg-blue-500 text-white font-medium rounded-full shadow-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
-                Check Now
-              </button>
-              </div>
-            </div>
-  
-          </div>
+      
+<div className="flex border-3 scale-90 mx-4 border-dotted rounded-3xl border-gray-300 items-center justify-center mb-20 p-4">
+      <div className="w-full max-w-5xl bg-white  overflow-hidden p-8 md:flex md:flex-row items-center relative  ">
+
+       
+        <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-48 h-48 bg-blue-100 rounded-full blur-3xl opacity-50 transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-pink-100 rounded-full blur-3xl opacity-50 transform translate-x-1/2 translate-y-1/2"></div>
         </div>
+
+        
+        
+
+       
+        <div className="relative z-10 flex-shrink-0 ml-8 hidden md:block">
+            <img
+              src="aisympt.jpg"
+              alt="Doctor waving during a video call"
+              className="w-58 h-58 object-cover rounded-full md:w-84 md:h-84"
+              />
+        </div>
+        <div className=" ml-2 relative z-10 flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+          <h1 className="instrument text-3xl sm:text-4xl lg:text-5xl  text-gray-800 mb-2 font-inter">
+            Diagonize with Ai
+          </h1>
+          <p className="text-sm sm:text-base text-gray-600 font-inter mb-6">
+            Connect with a certified doctor from the comfort of your home. Secure and confidential.
+          </p>
+          <button className="px-5 py-3 bg-red-500 text-white font-medium rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105 cursor-pointer">
+            Check Symptoms
+          </button>
+        </div>
+      </div>
+    </div>
+        
       );
     };
     

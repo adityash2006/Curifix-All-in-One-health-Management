@@ -14,6 +14,9 @@ const documentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  document_content:{
+    type:String
+  },
   uploadedAt: {
     type: Date,
     default: Date.now

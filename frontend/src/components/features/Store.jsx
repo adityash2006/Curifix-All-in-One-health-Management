@@ -1,7 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useUser, useAuth } from "@clerk/clerk-react";
 import { Upload, FileText, Trash2, Eye, AlertCircle, Loader2 } from 'lucide-react';
+import { NavLink } from "react-router-dom";
+import Loader from "../Loader";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
 const API_BASE = "http://localhost:3000/api/docs";
 
@@ -14,6 +18,9 @@ export default function MedicalDocsStore() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState(null);
+const [summaryloading,setSummaryLoading]=useState(false);
+  const [summary,setSummary]=useState("");
+  const [showsummary,setShowSummary]=useState(false);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -74,6 +81,23 @@ export default function MedicalDocsStore() {
     }
   };
 
+  const SummarizeView=async (id)=>{
+    try {
+      setShowSummary(true);
+      setSummaryLoading(true);
+     console.log("Summarize View called");
+     
+      const b=await fetch(`${API_BASE}/summarize/${id}`);
+      const data=await b.json();
+      setSummary(DOMPurify.sanitize(marked(data.summary)));
+       setSummaryLoading(false);
+      setShowSummary(true);
+     
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleView = async (id) => {
     setError(null);
     try {
@@ -104,12 +128,31 @@ export default function MedicalDocsStore() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[rgb(94,96,100)] p-4 sm:p-6">
+
+    <>
+
+    {showsummary ?  <div className="text-2xl bg-amber-100 w-full overflow-auto px-10 py-10 text-black">
+      
+      {summaryloading ? <div  className="flex flex-col justify-center items-center text-2xl  text-black " >
+        <div className="mt-20"> <Loader></Loader></div>
+        Summarizing...
+        
+      </div>: <div className="text-sm md:text-2xl md:mx-10 lg:mx-30 ">
+      <button className="cursor-pointer border-2 p-2 px-4 rounded-2xl" onClick={()=>{setShowSummary(false)}}><i class="fa-solid fa-arrow-left"></i></button>
+        <div className=" transition-3s text-center  instrument text-6xl mb-20 bg-gradient-to-r from-amber-800  to-green-700
+ bg-clip-text text-transparent">Curifix Summarizer</div>
+         <div dangerouslySetInnerHTML={{ __html: summary }} className=" text-black p-10 bg-white font-mono border-2 border-dotted"></div> 
+         
+         </div>}
+      
+    </div> :
+    
+    <div className="min-h-screen overflow-auto w-full bg-amber-100 p-4 sm:p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-            Medical <span style={{ color: '#a0e800' }}>Documents</span>
+          <h1 className="text-3xl sm:text-4xl font-bold text-blue-900 mb-2">
+            Medical <span className="text-green-900">Documents</span>
           </h1>
           <p className="text-gray-400 text-sm sm:text-base">
             Securely store and manage your medical records
@@ -160,6 +203,9 @@ export default function MedicalDocsStore() {
                 </div>
               </label>
             </div>
+            
+
+
 
             <button
               onClick={handleUpload}
@@ -259,9 +305,17 @@ export default function MedicalDocsStore() {
                       <Eye className="w-4 h-4 " />
                       View
                     </button>
+                    {doc.document_content && <button
+                      onClick={() => SummarizeView(doc._id)}
+                      className="flex-1 bg-red-400 cursor-pointer sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium text-white transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 text-sm"
+                      
+                    >
+                      <Eye className="w-4 h-4 " />
+                      Summarize 
+                    </button>}
                     <button
                       onClick={() => handleDelete(doc._id)}
-                      className="flex-1 cursor-cell sm:flex-none px-3 sm:px-4 py-2 bg-black text-white rounded-lg font-medium transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 hover:bg-gray-900 text-sm"
+                      className="flex-1 cursor-pointer sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-medium transition-all transform hover:scale-102 active:scale-95 flex items-center justify-center gap-2 text-sm"
                     >
                       <Trash2 className="w-4 h-4" />
                       Delete
@@ -273,6 +327,9 @@ export default function MedicalDocsStore() {
           )}
         </div>
       </div>
-    </div>
-  );
+      <div>
+        
+      </div>
+    </div>}
+ </> );
 }
