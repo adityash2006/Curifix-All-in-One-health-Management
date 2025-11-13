@@ -38,7 +38,7 @@ export default function ChatWindow() {
 
     try {
       console.log("req is hit ig");
-      let response = await fetch("http://localhost:3000/api/chat", options);
+      let response = await fetch(import.meta.env.VITE_SOCKET_SERVER+"/api/chat", options);
       let g = await response.json();
       
       setReply(g.reply);

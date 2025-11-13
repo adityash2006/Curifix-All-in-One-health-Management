@@ -32,7 +32,7 @@ export default function Sidebar() {
     };
   const getallthreads = async () => {
     try {
-      let a = await fetch("http://localhost:3000/api/thread",options);
+      let a = await fetch(import.meta.env.VITE_SOCKET_SERVER+"/api/thread",options);
       let b = await a.json();
       const filter = b.map((chat) => ({
         id: chat.threadId,
@@ -60,7 +60,7 @@ export default function Sidebar() {
     setcurrthreadid(newthreadid);
 
     try {
-      let a = await fetch(`http://localhost:3000/api/thread/${newthreadid}`);
+      let a = await fetch(import.meta.env.VITE_SOCKET_SERVER+`/api/thread/${newthreadid}`);
       let b = await a.json();
      
       setPrevChats(b);
@@ -73,7 +73,7 @@ export default function Sidebar() {
 
   const deletethread = async (threadid) => {
     try {
-      let a = await fetch(`http://localhost:3000/api/thread/${threadid}`, {
+      let a = await fetch(import.meta.env.VITE_SOCKET_SERVER+`/api/thread/${threadid}`, {
         method: "DELETE",
       });
       let b = await a.json();

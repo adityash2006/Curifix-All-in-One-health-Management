@@ -1,4 +1,4 @@
-import { SignedIn, SignIn,SignUp, SignedOut, SignInButton, UserButton,useSignUp,useUser } from '@clerk/clerk-react';
+import { SignedIn,SignUp, SignedOut, UserButton,useUser } from '@clerk/clerk-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ import { useEffect } from "react";
   useEffect(() => {
     if (isLoaded && isSignedIn && user) {
       // Run once user info is ready
-      fetch("http://localhost:3000/api/users/adduser", {
+      fetch(import.meta.env.VITE_SOCKET_SERVER+ "/api/users/adduser", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

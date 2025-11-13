@@ -7,7 +7,7 @@ import Loader from "../Loader";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 
-const API_BASE = "http://localhost:3000/api/docs";
+const API_BASE = import.meta.env.VITE_SOCKET_SERVER+"/api/docs";
 
 export default function MedicalDocsStore() {
   const fileInputRef = useRef(null);
@@ -141,7 +141,7 @@ const [summaryloading,setSummaryLoading]=useState(false);
       <button className="cursor-pointer border-2 p-2 px-4 rounded-2xl" onClick={()=>{setShowSummary(false)}}><i class="fa-solid fa-arrow-left"></i></button>
         <div className=" transition-3s text-center  instrument text-6xl mb-20 bg-gradient-to-r from-amber-800  to-green-700
  bg-clip-text text-transparent">Curifix Summarizer</div>
-         <div dangerouslySetInnerHTML={{ __html: summary }} className=" text-black p-10 bg-white font-mono border-2 border-dotted"></div> 
+         <div dangerouslySetInnerHTML={{ __html: summary }} className=" text-black text-sm p-10 bg-white font-mono border-2 border-dotted"></div> 
          
          </div>}
       

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { useUser } from "@clerk/clerk-react"; 
 
-const SOCKET_SERVER_URL = import.meta.env.VITE_SOCKET_SERVER || "http://localhost:4000";
+const SOCKET_SERVER_URL = import.meta.env.VITE_SOCKET_SERVER || "http://localhost:3000";
 
 export default function VideoCallFrontend(props) {
   const { user, isSignedIn } =  useUser() ;
@@ -41,8 +41,6 @@ export default function VideoCallFrontend(props) {
     checkdoc();
     
    },[]);
-
-  
 
   useEffect(()=>{
  setward( Math.floor(Math.random() * (9999 - 1001 + 1)) + 1001);
@@ -110,7 +108,7 @@ export default function VideoCallFrontend(props) {
       console.log("socket connected", s.id);
       s.emit("join-call", roomId);
       setJoined(true);
-      await fetch("http://localhost:3000/api/wards/start", {
+      await fetch(import.meta.env.VITE_SOCKET_SERVER+"/api/wards/start", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ wardId: roomId }),
@@ -178,7 +176,7 @@ export default function VideoCallFrontend(props) {
     });
 
     s.on("disconnect", async () => {
-      await fetch(`http://localhost:3000/api/wards/end/${roomId}`, {
+      await fetch(import.meta.env.VITE_SOCKET_SERVER+`/api/wards/end/${roomId}`, {
   method: "DELETE",
 });
       console.log("socket disconnected");
@@ -238,8 +236,8 @@ export default function VideoCallFrontend(props) {
     if (localStream) { localStream.getTracks().forEach(t => t.stop()); setLocalStream(null); }
   }
   useEffect(()=>{
-    async function activeward(){
-const res = await fetch("http://localhost:3000/api/wards");
+async function activeward(){
+const res = await fetch(import.meta.env.VITE_SOCKET_SERVER+"/api/wards");
 const wards = await res.json();
 setallwards(wards);
     }
