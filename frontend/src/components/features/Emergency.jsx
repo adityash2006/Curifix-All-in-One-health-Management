@@ -90,8 +90,8 @@ export default function Emergency() {
   ];
 
   return (
-    <div className="min-h-screen w-full overflow-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-      <div className="pt-8 pb-6 px-4 bg-gradient-to-b from-red-600/10 to-transparent border-b border-red-500/20">
+    <div className="min-h-screen w-full overflow-auto bg-gradient-to-br  from-green-50 via-white to-green-50 text-green-900">
+      <div className="pt-8 pb-6 px-4 ">
         <div className="max-w-4xl mx-auto">
           <div className="mb-2 text-sm font-semibold text-red-400 uppercase tracking-widest">
             Emergency Services
@@ -99,7 +99,7 @@ export default function Emergency() {
           <h1 className="text-5xl md:text-6xl font-bold mb-3 text-balance">
             Get Help <span className="text-red-500">Now</span>
           </h1>
-          <p className="text-lg text-slate-300 max-w-2xl">
+          <p className="text-lg text-slate-700 max-w-2xl">
             Quick access to essential emergency services in your area. Select a service for immediate assistance.
           </p>
         </div>
