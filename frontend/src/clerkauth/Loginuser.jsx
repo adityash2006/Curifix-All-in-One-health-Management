@@ -1,15 +1,25 @@
-import { SignedIn, SignIn,SignUp, SignedOut, SignInButton, useSignUp,UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignIn, SignedOut, useUser, useSignUp,UserButton } from '@clerk/clerk-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { dark, neobrutalism } from '@clerk/themes';
 import Dashboard from '../components/Dashboard';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
  export default function Loginuser(){
     const {isLoaded}=useSignUp();
+    const navigate = useNavigate();
+
+    const { isSignedIn } = useUser();
+    useEffect(() => {
+    if (isSignedIn) {
+      navigate("/user/dashboard"); 
+    }
+  }, [isSignedIn, navigate]);
     return <>
     <Navbar></Navbar>
   
-    <div className="flex justify-center items-center min-h-[600px] ">
+    <div className="flex justify-center mb-10 items-center min-h-[600px] ">
         <SignedOut>
       <SignIn signUpUrl="/signup"
         appearance={{variables:{
@@ -34,9 +44,9 @@ import { Link } from 'react-router-dom';
         }}
       />
       </SignedOut>
-      <SignedIn>
+      <SignedIn >
         
-     <UserButton></UserButton>   <p className='text-black text-3xl'>You are already Signed in go to your dashboard</p>
+     <UserButton></UserButton>   <p className='text-black text-3xl'>Yur dashboard</p>
        <br /> 
       <p> <button className='border-3 border-black text-black rounded-lg p-2 m-2'><Link to="/user/dashboard">Dashboard</Link></button> </p>
 

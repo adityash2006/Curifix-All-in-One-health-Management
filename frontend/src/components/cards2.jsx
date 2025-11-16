@@ -18,23 +18,23 @@ function Card2() {
           <h1 className=" instrument tracking-wide text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-gray-800 mb-4">
            Locate Nearby Health Centers 
           </h1>
-          <p className='text-gray-500 mb-10'>Never miss a dose again! Curifix helps you stay consistent with your medications and care routines.</p>
+          <p className='text-gray-500 mb-10'>Find the best healthcare facilities near you with ease.</p>
           <ul className='geist mb-10 list-disc pl-3  '>
 <li className="text-sm sm:text-base font-semibold text-black font-inter mb-3">
-            Easy Dose Scheduling
+            Quick & Easy Search
           </li>
           <li className="text-sm font-semibold sm:text-base text-black font-inter mb-3">
-           Smart Notifications
+            Comprehensive Listings
           </li>
           <li className="text-sm font-semibold sm:text-base text-black font-inter mb-3">
-            Peace of Mind for You & Your Family
+           Best Quality Care
           </li>
           </ul>
           
          <button class="mt-10 bg-[#E9FF5D] text-black font-semibold px-6 py-2 
   rounded-[15px] border-solid border-[#BEcf4c] 
   border-t-[2px] cursor-pointer border-r-[2px] border-l-[2px] border-b-[4px] opacity-100">
-  Get Started
+  Search
 </button>
         </div>
       </div>

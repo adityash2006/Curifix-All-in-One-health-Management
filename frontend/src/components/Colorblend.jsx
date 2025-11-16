@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import SplitText from './Splittext';
 
 const MAX_COLORS = 8;
+ const handleAnimationComplete = () => {
+  console.log('All letters have animated!');
+ };
 
 const frag = `
 #define MAX_COLORS ${MAX_COLORS}
@@ -95,7 +99,9 @@ void main() {
 }
 `;
 
+
 export default function ColorBends({
+  
   className,
   style,
   rotation = 45,
@@ -246,6 +252,7 @@ export default function ColorBends({
           : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
       return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
     };
+   
 
     const arr = (colors || []).filter(Boolean).slice(0, MAX_COLORS).map(toVec3);
     for (let i = 0; i < MAX_COLORS; i++) {
@@ -296,8 +303,23 @@ export default function ColorBends({
     <div className="absolute inset-0 flex items-center justify-center">
       <h1 className="instrument  bg-gradient-to-r from-black via-red-900 to-gray-700
  bg-clip-text text-transparent text-7xl font-bold z-10">
-       Health, Simplified.
+       
       </h1>
+      <SplitText
+  text="Health, Simplified !"
+  className=" instrument text-[#000000] text-7xl font-bold z-10"
+  delay={100}
+  duration={0.6}
+  ease="power3.out"
+  splitType="chars"
+  from={{ opacity: 0, y: 40 }}
+  to={{ opacity: 1, y: 0 }}
+  threshold={0.1}
+  rootMargin="-100px"
+  textAlign="center"
+  onLetterAnimationComplete={handleAnimationComplete}
+  
+/>
     </div>
   </div>
   

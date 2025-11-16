@@ -1,8 +1,7 @@
-import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, UserButton,RedirectToSignIn } from '@clerk/clerk-react';
 import { NavLink } from 'react-router-dom';
-import React, { useState } from 'react';
 import { LayoutDashboard,Video,Ambulance, MapPinHouse ,MessageSquare, Pill, FileText, User, Menu, TrendingUp, Plus, Settings2 } from 'lucide-react';
-import Dash from './features/Dash';
+
 import { Outlet } from "react-router-dom"
 
 export default function Dashboard() {
@@ -67,7 +66,7 @@ export default function Dashboard() {
     </div>
     </SignedIn>
     <SignedOut>
- <p>this user</p>
+      <RedirectToSignIn redirectUrl="/login"  />
     </SignedOut>
     </>
   );

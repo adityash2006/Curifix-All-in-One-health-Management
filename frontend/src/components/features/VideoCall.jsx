@@ -247,8 +247,8 @@ setallwards(wards);
   },[joined]);
 
   return (
-    <div className="p-3 text-black max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Video call (doctor consultation)</h2>
+    <div className="p-5 text-black max-w-4xl mx-auto ">
+      <h2 className="text-4xl font-mono font-bold mb-4">Video call (doctor consultation)</h2>
 
       {!permissionAsked && (
         <div className="mb-4">

@@ -95,17 +95,17 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-green-800 font-medium flex items-center transition-colors">
+              <a href="/" className="hover:text-green-800 font-medium flex items-center transition-colors">
                 <span className="mr-2">💡</span> Services
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-green-800 font-medium flex items-center transition-colors">
-                <span className="mr-2">👨‍⚕</span> Doctors
+              <a href="/login" className="hover:text-green-800 font-medium flex items-center transition-colors">
+                <span className="mr-2">👨‍⚕</span> Login
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-green-800 font-medium flex items-center transition-colors">
+              <a href="/info" className="hover:text-green-800 font-medium flex items-center transition-colors">
                 <span className="mr-2">✉</span> Contact
               </a>
             </li>

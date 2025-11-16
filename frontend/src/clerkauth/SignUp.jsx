@@ -2,13 +2,19 @@ import { SignedIn,SignUp, SignedOut, UserButton,useUser } from '@clerk/clerk-rea
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { dark, neobrutalism } from '@clerk/themes'
 import { useEffect } from "react";
 
 
  export default function Signupuser(){
   const { user, isLoaded, isSignedIn } = useUser();
+  const navigate = useNavigate();
+    useEffect(() => {
+    if (isSignedIn) {
+      navigate("/user/dashboard"); 
+    }
+  }, [isSignedIn, navigate]);
   useEffect(() => {
     if (isLoaded && isSignedIn && user) {
       // Run once user info is ready
@@ -31,7 +37,7 @@ import { useEffect } from "react";
 
     return <>
      <Navbar></Navbar>
-     <div className="flex justify-center min-h-[600px] items-center mt-15">
+     <div className="flex justify-center min-h-[600px] items-center my-15">
 <SignedOut>
       <SignUp signInUrl="/login"
         appearance={{

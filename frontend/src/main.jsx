@@ -18,6 +18,7 @@ import Video from './components/features/VideoCall.jsx'
 import NotFound from './components/Notfound.jsx'
 import NearbyHospitalsMap from './components/features/Hospital.jsx'
 import SmoothScroll from './utils/Scroll.jsx'
+import InfoPage from './components/Info.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const router=createBrowserRouter(
        {/* <Route path="/signup" element={<Signup />} />  */}
     <Route path="/login" element={<Loginuser />} /> 
     <Route path="/signup" element={<Signupuser />} />
+    <Route path="/info" element={<InfoPage/>}></Route>
     
      <Route path="/" element={<Home />} />
     

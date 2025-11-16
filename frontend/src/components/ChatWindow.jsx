@@ -134,22 +134,22 @@ export default function ChatWindow() {
                   <i className="fa-solid fa-home mr-2"></i>
                   Home
                 </Link>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
+                <Link to="/info" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
                   <i className="fa-solid fa-info-circle mr-2"></i>
                   About Curifix Ai
-                </a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
+                </Link>
+                <Link to="/info" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
                   <i className="fa-solid fa-question-circle mr-2"></i>
                   How it Works
-                </a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
+                </Link>
+                <Link to="/info" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
                   <i className="fa-solid fa-shield-alt mr-2"></i>
                   Privacy Policy
-                </a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
+                </Link>
+                <Link to="/info" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-all">
                   <i className="fa-solid fa-envelope mr-2"></i>
                   Contact Support
-                </a>
+                </Link>
               </div>
             </div>
           </div>
