@@ -1,186 +1,148 @@
-
-
-// Reusable EmergencyCard Component
-const EmergencyCard = ({ title, description, icon, buttonText, buttonColor, gradientFrom, gradientTo, className }) => {
-  return (
-    <div
-      className={`
-        w-full max-w-xs h-96 p-6 flex flex-col items-center justify-between text-center 
-        text-white rounded-3xl shadow-xl transition-all duration-300 
-        transform hover:scale-[1.03] hover:shadow-2xl
-        bg-gradient-to-br ${gradientFrom} ${gradientTo} 
-        ${className}
-      `}
-    >
-      {/* Icon Section */}
-      <div className="mt-4 mb-4 flex items-center justify-center">
-        <div className="w-24 h-24 flex items-center justify-center">
-          {icon}
-        </div>
-      </div>
-
-      {/* Title + Description */}
-      <div className="flex-grow flex flex-col justify-center">
-        <h2 className="text-3xl font-bold mb-2 font-sans">{title}</h2>
-        <p className="text-base font-medium opacity-90 font-sans">{description}</p>
-      </div>
-
-      {/* Button */}
-      <button
-        className={`
-          w-full py-3 px-6 text-gray-900 font-bold rounded-full shadow-lg 
-          transition-transform duration-300 transform hover:scale-[1.05]
-          ${buttonColor}
-        `}
-      >
-        {buttonText}
-      </button>
-    </div>
-  );
-};
-
-//  SVG Icons
-const AmbulanceIcon = (
-  <svg width="800px" height="800px" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--noto" preserveAspectRatio="xMidYMid meet"><path d="M47.95 111.51l37.52.05l39.77-16.2s.26-12.59-.51-25.62c-.77-13.03-4.38-32.84-4.38-32.84s.22-3.62-.22-5.58c-.42-1.86-1.54-3.37-4.65-3.55c-2.85-.17-67.12 0-68.87.22s-12.3 12.97-12.3 12.97S19.43 65.58 19 66.13c-.44.55-10.16 7.1-11.71 9.09C5.67 77.3 5.78 79 5.78 79l.06 16.83l42.11 15.68z" fill="#e1e1e1"></path><path d="M125.25 95.35s-21.72-.2-26.21.74s-7.51 3.62-10.05 7.71c-2.55 4.09-3.55 7.78-3.55 7.78s35.46-.07 36.66 0s2.82-1.81 2.95-4.36c.14-2.55.2-11.87.2-11.87z" fill="#516c73"></path><path d="M47.97 111.5s-3.08-7.37-6.3-10.66s-7.91-5.5-13.54-5.7c-5.63-.2-22.27-.33-22.27-.33s-3.74 3.08-4.01 7.43c-.27 4.36 0 8.51 3.49 8.78s42.63.48 42.63.48z" fill="#516c73"></path><path d="M15.48 112.45c.08 4.73 3.85 11.55 12.07 11.6s12.48-6.24 12.22-12.69c-.26-6.56-5.36-11.18-12.69-10.98c-6.87.2-11.71 5.52-11.6 12.07z" fill="#4e433d"></path><path d="M21.35 112.17c.04 2.5 2.02 6.09 6.34 6.12c4.32.03 6.42-3.1 6.28-6.5c-.14-3.46-2.9-6.03-6.53-5.98c-3.6.05-6.14 2.91-6.09 6.36z" fill="#c8c8c8"></path><path d="M93.93 111.89c.08 4.73 3.85 11.55 12.07 11.6s12.48-6.24 12.22-12.69c-.26-6.56-5.36-11.18-12.69-10.98c-6.86.19-11.7 5.51-11.6 12.07z" fill="#4e433d"></path><path d="M99.81 111.61c.04 2.5 2.02 6.09 6.34 6.12c4.32.03 6.42-3.1 6.28-6.5c-.14-3.46-2.9-6.03-6.53-5.98c-3.6.05-6.15 2.9-6.09 6.36z" fill="#c8c8c8"></path><path d="M5.82 90.86l119.47.47s.02-2.12.02-4.92c0-2.76-.1-4.83-.1-4.83L5.74 81.55l.08 9.31z" fill="#d70617"></path><path d="M5.76 78.97s12.17-.05 12.83-.05s1.18.51 1.18 1.38c0 .87.36 4.09-2.25 6.49c-1.12 1.03-3.54 1.25-5.83 1.28c-3.43.04-5.62.06-5.9.06c0 0-.15-6.81-.13-7.64c.04-.97.1-1.52.1-1.52z" fill="#ffe365"></path><path d="M34.05 41.4l87.09-.02l-.35-2.26c-.2-1.29-.43-2.21-.43-2.21L46.53 37l.09-9.02s-1.79-.21-2.73.67c-1.33 1.25-3.72 3.76-6.03 6.79c-1.81 2.37-3.81 5.96-3.81 5.96z" fill="#c9c9c9"></path><path d="M37.32 31.86c-2.3 2.57-1.65 6.79-1.65 6.79s7.48.24 7.74-.18c.26-.41.15-9.46.15-9.46s-3.13-.64-6.24 2.85z" fill="#fa2b23"></path><path d="M46.62 28.01c.41-.05 23.78-.2 23.78-.2s0-4.01-.04-5.46c-.05-1.97-1.61-3.47-4.45-3.57c-1.99-.07-13.31-.16-15.12-.05c-1.81.1-3.88 1.61-3.99 3.88s-.18 5.4-.18 5.4z" fill="#dd0f26"></path><path d="M55.42 23.2l1.32 2.88l-3.16-.05s-2.43-2.33-2.43-2.85s2.69-2.54 2.69-2.54l3.33-.04l-1.75 2.6z" fill="#ff5b5e"></path><path d="M61.07 23.26l-1.17 2.9l2.63-.02s2.7-2.32 2.73-2.77c.04-.65-2.71-2.76-2.71-2.76l-2.95-.01l1.47 2.66z" fill="#ff5b5e"></path><path d="M90.78 44.69c-.21 1.68-.35 16.27-.35 16.27l.07 14.94l7.47-.14l.42-15.29l-.28-15.64l-7.33-.14z" fill="#1e86fe"></path><path fill="#1e86fe" d="M79.77 65.24l12.56-8.59l12.99-8.24l4.05 6l-12.85 8.94l-12.98 8.03z"></path><path fill="#1e86fe" d="M83.12 48.69l-3.91 5.86l12.42 9.15l12.85 7.96l4.12-5.87l-12.99-9.14z"></path><path d="M38.09 45.76c-1.39.13-2.72.56-3.77 2.16c-1.05 1.61-10.12 18.01-11.03 19.55c-.49.83-1.07 2.12-.85 3.13c.19.85 1.07 1.49 2.03 1.55c2.09.14 28.76-.07 30.23-.07c1.47 0 2.72-1.26 2.79-3.49s.18-18.44 0-20.18c-.21-2.02-1.54-2.65-3.21-2.72c-1.54-.07-14.73-.07-16.19.07z" fill="#557077"></path><path d="M39.7 50.04c-1.37.02-2.43.47-3.48 2.22c-.61 1.02-7.89 14.24-8.1 14.87c-.21.63.28 1.19 1.33 1.19s21.22-.14 22.48-.14c1.26 0 1.89-.91 1.95-2.79c.07-1.89 0-12.36 0-13.47s-.56-1.89-2.02-1.89c-1.46-.01-10.9-.02-12.16.01z" fill="#afe3fb"></path></svg>
-);
-
-const FireIcon = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 36 36"
-    className="w-20 h-20"
-    aria-hidden="true"
-    role="img"
-    preserveAspectRatio="xMidYMid meet"
-  >
-    <path fill="#CE9E5D" d="M32 36v-2a6 6 0 0 0-6-6H10a6 6 0 0 0-6 6v2h28z"></path>
-    <path fill="#FFF35F" d="M4.09 33c-.055.326-.09.659-.09 1v2h28v-2c0-.341-.035-.674-.09-1H4.09z"></path>
-    <path fill="#CCD6DD" d="M4 34h28v1H4z"></path>
-    <path fill="#A0041E" d="M32 13.656c0 3.59-6.268 6.5-14 6.5s-14-2.91-14-6.5s6.268-2.5 14-2.5s14-1.09 14 2.5z"></path>
-    <path fill="#292F33" d="M14 27h8s-1.018 7-4 7s-4-7-4-7z"></path>
-    <path fill="#FFDC5D" d="M13.64 28.101c1.744 1.267 2.848 1.962 4.36 1.962c1.511 0 2.616-.696 4.36-1.962V24.29h-8.72v3.811z"></path>
-    <path fill="#F9CA55" d="M13.632 25.973c1.216 1.374 2.724 1.746 4.364 1.746c1.639 0 3.147-.372 4.364-1.746v-3.491h-8.728v3.491z"></path>
-    <path fill="#FFAC33" d="M21.152 3.3c-1.925-.623-5.876-.46-7.008 1.012c-2.944.057-6.083 2.932-6.536 6.443c-.448 3.475.235 4.874.591 7.486c.403 2.96 2.067 3.907 3.397 4.303c1.914 2.529 3.949 2.421 7.366 2.421c6.672 0 9.271-4.458 9.552-12.04c.169-4.585-2.522-8.059-7.362-9.625z"></path>
-    <path fill="#FFDC5D" d="M25.547 13.243c-.646-.894-1.472-1.614-3.284-1.868c.68.311 1.331 1.387 1.416 1.982c.085.595.17 1.076-.368.481c-2.155-2.382-4.502-1.444-6.827-2.899c-1.624-1.016-2.119-2.141-2.119-2.141s-.198 1.5-2.661 3.029c-.714.443-1.566 1.43-2.038 2.888c-.34 1.048-.234 1.982-.234 3.578c0 4.66 3.841 8.578 8.578 8.578s8.578-3.953 8.578-8.578c-.002-2.898-.305-4.03-1.041-5.05z"></path>
-    <path fill="#C1694F" d="M18.961 20.677h-1.906a.477.477 0 1 1 0-.954h1.906a.477.477 0 1 1 0 .954z"></path>
-    <path fill="#662113" d="M14.195 17.341a.953.953 0 0 1-.953-.953v-.953a.953.953 0 0 1 1.906 0v.953a.953.953 0 0 1-.953.953zm7.626 0a.953.953 0 0 1-.953-.953v-.953a.953.953 0 0 1 1.906 0v.953a.953.953 0 0 1-.953.953z"></path>
-    <path fill="#C1694F" d="M18.134 24.657c-2.754 0-3.6-.705-3.741-.848a.655.655 0 0 1 .902-.95c.052.037.721.487 2.839.487c2.2 0 2.836-.485 2.842-.49a.638.638 0 0 1 .913.015a.67.67 0 0 1-.014.939c-.142.142-.987.847-3.741.847"></path>
-    <path fill="#292F33" d="M27 36v-9c0-.55-.45-1-1-1h-1c-.55 0-1 .45-1 1v9h3zm-15 0v-9c0-.55-.45-1-1-1h-1c-.55 0-1 .45-1 1v9h3z"></path>
-    <path fill="#DF1F32" d="M28.853 10.857c-.86-.173-1.093-4.028-3.084-6.859C23.894 1.335 20.304 0 17.997 0S12.1 1.335 10.226 3.998c-1.992 2.831-2.224 6.686-3.084 6.859c-3.317.665-3.161 2.386-3.14 2.782c.123-.466.438-1.578 3.902-1.64c3.404-.06 6.58.806 10.094.806s6.69-.866 10.094-.806c3.464.061 3.778 1.173 3.902 1.64c.02-.396.176-2.117-3.141-2.782z"></path>
-    <path fill="#EA596E" d="M18 0c-2.094 0-5 3.593-5 5.054V9s.109 1 .92 1h8.16c.811 0 .92-1 .92-1V5.054C23 3.593 20.094 0 18 0z"></path>
-    <path fill="#CE9E5D" d="M23.883 25c-.406-.378-2.474.364-3.019 1c-.545.636-.638 1.737-1.01 3c-.318 1.079-1.572 3.958-1.931 4.775c-.358-.817-1.605-3.696-1.923-4.775c-.372-1.263-.455-2.364-1-3s-2.594-1.378-3-1s.015 1.463 0 2s0 9 0 9h12s.015-8.463 0-9s.289-1.622-.117-2z"></path>
-  </svg>
-);
-
-const PoliceIcon = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="512"
-    height="512"
-    xmlSpace="preserve"
-    viewBox="0 0 512 512"
-  >
-    <circle fill="#1B9BAA" cx="256" cy="256" r="256" />
-    <path
-      opacity=".1"
-      d="M512 256c0-5.006-.159-9.974-.443-14.909L361.575 91.11H255.942v420.889L256 512c141.386 0 256-114.614 256-256z"
-    />
-    <path
-      fill="#FFD0AE"
-      d="M349.788 360.184c-74.441 0-57.834-36.507-62.884-73.06h-61.693c-5.05 36.553 11.558 73.06-62.884 73.06-47.574 0-63.807 20.847-63.807 66.709v30.9C141.96 491.754 196.643 512 256.058 512c59.414 0 114.097-20.245 157.537-54.207v-30.9c0-45.863-16.233-66.709-63.807-66.709z"
-    />
-    <path
-      opacity=".1"
-      d="M288.253 308.324c-.162-6.264-.377-12.73-1.271-19.2h-61.693c-.89 6.439-1.107 12.877-1.268 19.114 8.926 5.721 19.539 9.159 32.184 9.159 12.58 0 23.149-3.404 32.048-9.073z"
-    />
-    <ellipse fill="#FFD0AE" cx="181.323" cy="223.44" rx="13.799" ry="16.269" />
-    <ellipse fill="#FFD0AE" cx="331.085" cy="223.44" rx="13.799" ry="16.269" />
-    <path
-      fill="#FFD0AE"
-      d="M269.927 106.669h-27.445c-36.089 0-65.346 42.325-65.346 78.415 0 0 2.113 126.77 79.068 126.77s79.068-126.77 79.068-126.77c0-36.09-29.256-78.415-65.345-78.415z"
-    />
-    <path
-      fill="#231F20"
-      d="M174.972 209.453c-11.648-17.49-25.132-125.358 40.549-122.576 57.978-49.658 162.367 16.564 122.894 122.576l-7.457 4.695c7.177-20.148-3.637-68.778-12.394-64.235C272.135 174 256.135 129 215.521 131.287c-25.903 10.825-29.094 34.405-32.206 50.626-3.112 16.222-.886 32.235-.886 32.235l-7.457-4.695z"
-    />
-    <path
-      opacity=".1"
-      d="M318.564 149.913C272.135 174 256.135 129 215.521 131.287c-25.903 10.825-29.094 34.405-32.206 50.626-1.739 9.066-1.811 18.065-1.536 24.242.194-4.235.646-8.855 1.536-13.494 3.112-16.221 6.303-39.801 32.206-50.626 40.614-2.287 56.614 42.713 103.043 18.626 6.202-3.217 13.435 20.237 14.577 41.355 1.429-22.809-7.286-55.885-14.577-52.103z"
-    />
-    <path
-      fill="#E4E5E6"
-      d="M349.673 360.184c-9.712 0-17.861-.627-24.725-1.788l-69.006 7.519-69.006-7.519c-6.863 1.161-15.012 1.788-24.724 1.788-47.574 0-63.807 20.847-63.807 66.709v30.9C141.846 491.754 196.528 512 255.942 512c59.415 0 114.097-20.245 157.538-54.207v-30.9c0-45.863-16.233-66.709-63.807-66.709z"
-    />
-    <path
-      fill="#242F41"
-      d="M349.673 360.184c-9.712 0-17.861-.627-24.725-1.788l-69.006 7.519-69.006-7.519c-6.863 1.161-15.012 1.788-24.724 1.788-47.574 0-63.807 20.847-63.807 66.709v30.9C141.846 491.754 196.528 512 255.942 512c59.415 0 114.097-20.245 157.538-54.207v-30.9c0-45.863-16.233-66.709-63.807-66.709z"
-    />
-    <path
-      fill="#242F41"
-      d="M221.616 332.181h-4.742l-29.985 25.876 32.181 45.558 37.065-37.701z"
-    />
-    <path
-      fill="#242F41"
-      d="M290.758 332.181h4.638l29.985 25.876-32.182 45.558-37.064-37.701z"
-    />
-    <path
-      opacity=".1"
-      d="m219.07 407.608 37.065-38.708 37.064 38.708 35.169-48.722-.025-.007c-1.094-.15-2.167-.31-3.201-.484l-31.942 45.22-37.064-37.701-37.065 37.701-31.941-45.22a103.76 103.76 0 0 1-3.202.484l-.025.007 35.167 48.722z"
-    />
-    <path
-      fill="#242F41"
-      d="M256.463 43.774 151.35 91.11l12.137 36.412c0 34.639 41.626 55.438 92.976 55.438 51.349 0 92.976-20.798 92.976-55.438l12.137-36.412-105.113-47.336z"
-    />
-    <path
-      fill="#EDC36A"
-      d="M275.699 95.753a2.994 2.994 0 0 0-2.955 2.542l-10.337-1.604-4.296-9.298-.393-.851a2.996 2.996 0 0 0-1.256-5.718 3 3 0 0 0-3.001 3.001c0 1.208.717 2.241 1.745 2.717l-.393.851-4.296 9.298-10.337 1.604a2.993 2.993 0 0 0-2.955-2.542 3 3 0 1 0 0 6.001c.807 0 1.536-.322 2.075-.84l7.543 7.854-1.798 11.198a2.965 2.965 0 0 0-.568-.058 3 3 0 1 0 3 3.001c0-.518-.143-.997-.373-1.422l9.357-5.254 9.291 5.217a2.972 2.972 0 0 0-.394 1.459 3 3 0 1 0 3-3.001c-.165 0-.324.023-.483.049l-1.796-11.189 7.543-7.854c.539.518 1.269.84 2.075.84a3 3 0 0 0 .002-6.001z"
-    />
-    <circle fill="#EDC36A" cx="219.148" cy="389.608" r="4.826" />
-    <circle fill="#EDC36A" cx="292.967" cy="389.608" r="4.826" />
-    <path fill="#EDC36A" d="M157.135 446.197h52V458h-52z" />
-  </svg>
-);
+import { useState } from "react";
 
 export default function Emergency() {
+  const [savedNumber, setSavedNumber] = useState("");
+
+  // Save emergency contact locally (you can replace with DB)
+  const handleSaveNumber = () => {
+    if (savedNumber.trim().length < 10)
+      return alert("Enter a valid number");
+
+    localStorage.setItem("emergencyContact", savedNumber);
+    alert("Emergency contact saved!");
+  };
+
+  const savedContact = localStorage.getItem("emergencyContact");
+
+  // SOS SMS with location
+  const sendSOS = () => {
+    if (!savedContact) {
+      alert("No emergency contact saved!");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        const message = `EMERGENCY! I need help. My location: https://maps.google.com/?q=${lat},${lng}`;
+
+        window.location.href = `sms:${savedContact}?body=${encodeURIComponent(
+          message
+        )}`;
+      },
+      () => {
+        alert("Unable to access location");
+      }
+    );
+  };
+
+  const emergencyServices = [
+    {
+      id: 1,
+      name: "Ambulance",
+      number: "108",
+      icon: "🚑",
+      color: "from-red-500 to-red-600",
+      description: "Medical Emergency",
+    },
+    {
+      id: 2,
+      name: "Police",
+      number: "100",
+      icon: "🚓",
+      color: "from-blue-500 to-blue-600",
+      description: "Police Assistance",
+    },
+    {
+      id: 3,
+      name: "Fire Brigade",
+      number: "101",
+      icon: "🔥",
+      color: "from-orange-500 to-orange-600",
+      description: "Fire Emergency",
+    },
+    {
+      id: 4,
+      name: "Women Helpline",
+      number: "1091",
+      icon: "👩",
+      color: "from-pink-500 to-pink-600",
+      description: "Women Safety",
+    },
+    {
+      id: 5,
+      name: "Child Helpline",
+      number: "1098",
+      icon: "👶",
+      color: "from-purple-500 to-purple-600",
+      description: "Child Protection",
+    },
+    {
+      id: 6,
+      name: "Disaster Management",
+      number: "1070",
+      icon: "⚠️",
+      color: "from-yellow-500 to-yellow-600",
+      description: "Disaster Relief",
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-lime-100 w-full flex items-center justify-center p-6">
-      <div className="w-full max-w-5xl">
-        <h1 className="text-4xl font-extrabold text-gray-800 text-center mb-12">
-          Emergency Quick Access
-        </h1>
-
-        {/* Cards */}
-        <div className="flex flex-col md:flex-row justify-center items-stretch gap-8">
-          <EmergencyCard
-            title="Ambulance"
-            description="Immediate medical assistance for emergencies."
-            icon={AmbulanceIcon}
-            buttonText="CALL AMBULANCE"
-            buttonColor="bg-green-400 hover:bg-green-500"
-            gradientFrom="from-blue-500"
-            gradientTo="to-blue-300"
-          />
-
-          <EmergencyCard
-            title="Fire"
-            description="Report fires and request rescue services."
-            icon={FireIcon}
-            buttonText="CALL FIRE"
-            buttonColor="bg-green-400 hover:bg-green-500"
-            gradientFrom="from-orange-500"
-            gradientTo="to-orange-300"
-          />
-
-          <EmergencyCard
-            title="Police"
-            description="Report crimes, request assistance, and ensure safety."
-            icon={PoliceIcon}
-            buttonText="CALL POLICE"
-            buttonColor="bg-green-400 hover:bg-green-500"
-            gradientFrom="from-purple-900"
-            gradientTo="to-blue-400"
-          />
+    <div className="min-h-screen w-full overflow-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      <div className="pt-8 pb-6 px-4 bg-gradient-to-b from-red-600/10 to-transparent border-b border-red-500/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-2 text-sm font-semibold text-red-400 uppercase tracking-widest">
+            Emergency Services
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold mb-3 text-balance">
+            Get Help <span className="text-red-500">Now</span>
+          </h1>
+          <p className="text-lg text-slate-300 max-w-2xl">
+            Quick access to essential emergency services in your area. Select a service for immediate assistance.
+          </p>
         </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+          {emergencyServices.map((service) => (
+            <button
+              key={service.id}
+              onClick={() => (window.location.href = `tel:${service.number}`)}
+              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${service.color} p-0.5 transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95`}
+            >
+              <div className="relative bg-slate-900/95 backdrop-blur-sm rounded-2xl p-6 flex flex-col items-center justify-center gap-3 h-full min-h-40">
+                {/* Icon */}
+                <div className="text-4xl group-hover:scale-125 transition-transform duration-300">
+                  {service.icon}
+                </div>
+
+                {/* Service name and number */}
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white mb-1">
+                    {service.name}
+                  </div>
+                  <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-500 mb-2">
+                    {service.number}
+                  </div>
+                  <div className="text-xs text-slate-400 uppercase tracking-wider">
+                    {service.description}
+                  </div>
+                </div>
+
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.color} opacity-20`} />
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        
+
+      
       </div>
     </div>
   );
