@@ -5,7 +5,7 @@ import Lenis from "@studio-freight/lenis";
 export default function SmoothScroll({ children }) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.9, // control scroll smoothness
+      duration: 1.9, 
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easing curve
       smooth: true,
       smoothTouch: false,
