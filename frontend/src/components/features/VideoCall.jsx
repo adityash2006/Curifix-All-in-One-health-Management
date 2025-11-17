@@ -103,7 +103,9 @@ export default function VideoCallFrontend(props) {
 
     const s = io(SOCKET_SERVER_URL, { transports: ["websocket"] });
     setSocket(s);
-
+    useEffect(()=>{
+      console.log("remoteStreams changed: ", remoteStreams);
+    },[remoteStreams])
     s.on("connect", async () => {
       console.log("socket connected", s.id);
       s.emit("join-call", roomId);
