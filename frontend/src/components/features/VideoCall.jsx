@@ -201,11 +201,21 @@ export default function VideoCallFrontend(props) {
   function createPeerConnection(peerId, s) {
     const pc = new RTCPeerConnection(RTC_CONFIG);
 
+    // pc.onicecandidate = (ev) => {
+    //   if (ev.candidate) {
+    //     s.emit("signal", peerId, { type: "candidate", candidate: ev.candidate });
+    //   }
+    // };
+    pc.onicegatheringstatechange = () => {
+  console.log("🔍 ICE gathering state:", pc.iceGatheringState);
+};
+
     pc.onicecandidate = (ev) => {
-      if (ev.candidate) {
-        s.emit("signal", peerId, { type: "candidate", candidate: ev.candidate });
-      }
-    };
+  console.log("📨 ICE candidate generated:", ev.candidate);
+  if (ev.candidate) {
+    s.emit("signal", peerId, { type: "candidate", candidate: ev.candidate });
+  }
+};
 
     pc.ontrack = (ev) => {
       const remoteStream = (ev.streams && ev.streams[0]) ? ev.streams[0] : new MediaStream(ev.track ? [ev.track] : []);
