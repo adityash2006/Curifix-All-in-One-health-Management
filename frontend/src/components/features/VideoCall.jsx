@@ -50,9 +50,19 @@ export default function VideoCallFrontend(props) {
   iceServers: [
     { urls: "stun:stun.l.google.com:19302" },
     {
-      urls: "turn:your.turnserver.com:3478",
-      username: "user",
-      credential: "pass"
+      urls: "turn:relay1.expressturn.com:3478?transport=udp",
+      username: "000000002078716226",
+      credential: "pfQs3VghMXf0AV5niKfD/pUyzr4="
+    },
+    {
+      urls: "turn:relay1.expressturn.com:3478?transport=tcp",
+      username: "000000002078716226",
+      credential: "pfQs3VghMXf0AV5niKfD/pUyzr4="
+    },
+    {
+      urls: "turns:relay1.expressturn.com:5349?transport=tcp",
+      username: "000000002078716226",
+      credential: "pfQs3VghMXf0AV5niKfD/pUyzr4="
     }
   ]
 };
@@ -275,7 +285,7 @@ setallwards(wards);
               <button onClick={toggleCam} className="px-3 text-black py-1 rounded border">{camEnabled ? 'Stop Cam' : 'Start Cam'}</button>
               {!joined &&
               <p>
-              {isdoc ?<p> Available wards {ward} </p>:<p>Enter the virtual ward {ward} </p>}
+              {isdoc ?<span> Available wards {ward} </span>:<span>Enter the virtual ward {ward} </span>}
              </p> }
             </div>
           </div>
