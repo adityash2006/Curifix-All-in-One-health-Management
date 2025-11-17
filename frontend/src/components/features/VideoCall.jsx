@@ -48,7 +48,8 @@ export default function VideoCallFrontend(props) {
   
   const RTC_CONFIG = {
   iceServers: [
-    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302",
+     },
     {
       urls: "turn:relay1.expressturn.com:3478?transport=udp",
       username: "000000002078716226",
