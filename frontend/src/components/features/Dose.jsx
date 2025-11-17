@@ -17,7 +17,7 @@ export default function TakeYourDose() {
     );
   }, []);
 
-  // Update timers every second
+ 
   useEffect(() => {
     const interval = setInterval(() => {
       setReminders((prevReminders) =>

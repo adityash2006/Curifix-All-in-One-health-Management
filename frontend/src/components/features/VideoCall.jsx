@@ -47,10 +47,15 @@ export default function VideoCallFrontend(props) {
   },[permissionAsked]);
   
   const RTC_CONFIG = {
-    iceServers: [
-      { urls: "stun:stun.l.google.com:19302" },
-    ],
-  };
+  iceServers: [
+    { urls: "stun:stun.l.google.com:19302" },
+    {
+      urls: "turn:your.turnserver.com:3478",
+      username: "user",
+      credential: "pass"
+    }
+  ]
+};
 
   useEffect(() => {
     if (localVideoRef.current && localStream) {

@@ -114,12 +114,10 @@ export default function Emergency() {
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${service.color} p-0.5 transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95`}
             >
               <div className="relative bg-slate-900/95 backdrop-blur-sm rounded-2xl p-6 flex flex-col items-center justify-center gap-3 h-full min-h-40">
-                {/* Icon */}
+               
                 <div className="text-4xl group-hover:scale-125 transition-transform duration-300">
                   {service.icon}
-                </div>
-
-                {/* Service name and number */}
+                </div>     
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white mb-1">
                     {service.name}
