@@ -151,7 +151,7 @@ export default function ChatWindow() {
                   Contact Support
                 </Link>
               </div>
-            </div>
+            </div>   
           </div>
         </div>
         
