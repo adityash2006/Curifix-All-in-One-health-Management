@@ -34,12 +34,14 @@ Many people struggle to manage their health due to:
 ---
 
 ## 🧩 Tech Stack  
-- **Frontend:** React / Next.js, TailwindCSS, ShadCN UI  
-- **Backend:** Node.js / Express  
-- **Database:** MongoDB / PostgreSQL  
-- **AI & NLP:** ClinicalBERT / BlueBERT / OpenAI API  
-- **Cloud:** AWS / GCP  
-- **APIs:** Google Maps (for doctor locator), Twilio (for emergency calls), Video SDK (for consultations)  
+- **Frontend:** React 19, Vite, Tailwind CSS 4, Framer Motion, GSAP, Three.js  
+- **Backend:** Node.js, Express 5, Socket.io  
+- **Database:** MongoDB (Mongoose)  
+- **Authentication:** Clerk  
+- **AI:** Google Gemini (via LangChain)  
+- **File Storage:** Cloudinary, Multer  
+- **Maps:** MapLibre GL  
+- **Real-time:** Socket.io  
 
 ---
 
@@ -115,6 +117,10 @@ Create a `.env` file in the backend folder and add these fields:
 ```env
 MONGODB_URI=mongodb://localhost:27017/curifix
 GOOGLE_API_KEY=your_gemini_api_key_here
+CLERK_SECRET_KEY=your_clerk_secret_key_here
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
 
 ---
@@ -124,7 +130,7 @@ GOOGLE_API_KEY=your_gemini_api_key_here
 Run the backend server locally.
 
 ```bash
-node server.js
+npm run dev
 ```
 
 The backend server will run on: `http://localhost:5000`
@@ -162,9 +168,12 @@ You can open your browser and start using the app.
 ### ✨ Features
 
 * Full-stack health management system
-* User-friendly UI for managing health records
-* Supports multiple languages
-* Integrated Google API features
+* User-friendly UI with modern animations (GSAP, Framer Motion)
+* AI-powered health assistant using Google Gemini
+* Real-time chat with Socket.io
+* Secure authentication with Clerk
+* Medical document storage with Cloudinary
+* Interactive maps with MapLibre GL
 
 ---
 
