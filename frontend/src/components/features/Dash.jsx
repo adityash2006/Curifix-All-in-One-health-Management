@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, HeartPulse, Sparkles, Radio, Droplets, Flame, Moon, Activity, TrendingUp, Clock, ExternalLink } from 'lucide-react';
+import { useUser } from '@clerk/clerk-react';
 
-// Demo user - replace with Clerk in production
-const demoUser = { firstName: 'Friend' };
 
 // Greeting Card Component
 function GreetingCard({ userName, quote }) {
@@ -35,10 +34,10 @@ function WellnessCard() {
 // Quick Stats Component
 function QuickStats() {
   const stats = [
-    { icon: Droplets, label: 'Hydration', value: '6/8', unit: 'glasses', color: 'text-blue-700' },
-    { icon: Flame, label: 'Calories', value: '1,842', unit: 'kcal', color: 'text-orange-700' },
+    { icon: Droplets, label: 'Hydration', value: '0/8', unit: 'glasses', color: 'text-blue-700' },
+    { icon: Flame, label: 'Calories', value: '0', unit: 'kcal', color: 'text-orange-700' },
     { icon: Moon, label: 'Sleep', value: '7.5', unit: 'hours', color: 'text-purple-700' },
-    { icon: Activity, label: 'Steps', value: '8,234', unit: 'steps', color: 'text-green-700' }
+    { icon: Activity, label: 'Steps', value: '1000', unit: 'steps', color: 'text-green-700' }
   ];
 
   return (
@@ -120,126 +119,127 @@ export default function Dash() {
 
   const randomQuote = healthQuotes[Math.floor(Math.random() * healthQuotes.length)];
 
-  useEffect(() => {
-    async function fetchHealthNews() {
-      try {
-        setLoading(true);
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "claude-sonnet-4-20250514",
-            max_tokens: 1000,
-            messages: [
-              {
-                role: "user",
-                content: "Find 5 recent health and wellness news headlines from the past week. Return ONLY valid JSON with this exact format, no markdown, no preamble: [{\"title\": \"headline\", \"description\": \"brief summary\", \"date\": \"relative time like '2 hours ago'\"}]"
-              }
-            ],
-            tools: [
-              {
-                type: "web_search_20250305",
-                name: "web_search"
-              }
-            ]
-          })
-        });
+  // useEffect(() => {
+  //   async function fetchHealthNews() {
+  //     try {
+  //       setLoading(true);
+  //       const response = await fetch("https://api.anthropic.com/v1/messages", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           model: "claude-sonnet-4-20250514",
+  //           max_tokens: 1000,
+  //           messages: [
+  //             {
+  //               role: "user",
+  //               content: "Find 5 recent health and wellness news headlines from the past week. Return ONLY valid JSON with this exact format, no markdown, no preamble: [{\"title\": \"headline\", \"description\": \"brief summary\", \"date\": \"relative time like '2 hours ago'\"}]"
+  //             }
+  //           ],
+  //           tools: [
+  //             {
+  //               type: "web_search_20250305",
+  //               name: "web_search"
+  //             }
+  //           ]
+  //         })
+  //       });
 
-        const data = await response.json();
-        const textContent = data.content
-          .filter(item => item.type === "text")
-          .map(item => item.text)
-          .join("");
+  //       const data = await response.json();
+  //       const textContent = data.content
+  //         .filter(item => item.type === "text")
+  //         .map(item => item.text)
+  //         .join("");
         
-        const cleanJson = textContent.replace(/```json|```/g, "").trim();
-        const articles = JSON.parse(cleanJson);
-        setNews(articles.slice(0, 5));
-      } catch (err) {
-        console.error("Error fetching news:", err);
-        // Fallback news
-        setNews([
-          { title: "Morning Exercise Boosts Mental Health", description: "New study shows 20 minutes of activity improves mood", date: "2 hours ago" },
-          { title: "Mediterranean Diet Linked to Longevity", description: "Researchers find strong correlation with healthy aging", date: "5 hours ago" },
-          { title: "Hydration Tips for Winter Wellness", description: "Experts share strategies to stay hydrated in cold weather", date: "1 day ago" },
-          { title: "Sleep Quality Affects Immune System", description: "Study reveals connection between rest and immunity", date: "1 day ago" },
-          { title: "Plant-Based Proteins on the Rise", description: "New alternatives provide complete nutrition", date: "2 days ago" }
-        ]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchHealthNews();
-  }, []);
+  //       const cleanJson = textContent.replace(/```json|```/g, "").trim();
+  //       const articles = JSON.parse(cleanJson);
+  //       setNews(articles.slice(0, 5));
+  //     } catch (err) {
+  //       console.error("Error fetching news:", err);
+  //       // Fallback news
+  //       setNews([
+  //         { title: "Morning Exercise Boosts Mental Health", description: "New study shows 20 minutes of activity improves mood", date: "2 hours ago" },
+  //         { title: "Mediterranean Diet Linked to Longevity", description: "Researchers find strong correlation with healthy aging", date: "5 hours ago" },
+  //         { title: "Hydration Tips for Winter Wellness", description: "Experts share strategies to stay hydrated in cold weather", date: "1 day ago" },
+  //         { title: "Sleep Quality Affects Immune System", description: "Study reveals connection between rest and immunity", date: "1 day ago" },
+  //         { title: "Plant-Based Proteins on the Rise", description: "New alternatives provide complete nutrition", date: "2 days ago" }
+  //       ]);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchHealthNews();
+  // }, []);
 
+const {user}=useUser();
+
+const demoUser = { firstName: user.firstName };
   return (
 
-    <div>
-      sdfdsf
+    <div className="flex-1 overflow-auto bg-gradient-to-br from-lime-50 to-green-50 min-h-screen">
+      <div className="p-8 max-w-7xl mx-auto">
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900">My Health Dashboard</h2>
+            <p className="text-sm text-gray-600 mt-1">Track your wellness journey</p>
+          </div>
+          {/* <button className="p-3 hover:bg-white/60 rounded-xl transition-colors backdrop-blur-sm">
+            <Menu size={24} className="text-gray-700" />
+          </button> */}
+        </div>
+
+        {/* Greeting + Wellness Cards */}
+        <div className="grid grid-cols-2 gap-6 mb-8">
+          <GreetingCard userName={demoUser.firstName} quote={randomQuote} />
+          <WellnessCard />
+        </div>
+
+        {/* Quick Stats */}
+        <div className="mb-8">
+          <QuickStats />
+        </div>
+
+        {/* Activity Suggestions + Health Tip */}
+        <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="col-span-2">
+            <ActivitySuggestions />
+          </div>
+          <div className="bg-gradient-to-br from-lime-400 to-green-400 rounded-2xl p-6 shadow-lg text-white">
+            <TrendingUp size={32} className="mb-3" />
+            <h4 className="text-lg font-bold mb-2">Weekly Progress</h4>
+            <p className="text-sm opacity-90 mb-4">You're 15% more active than last week! 🎉</p>
+            <div className="bg-white/30 rounded-lg p-3 backdrop-blur-sm">
+              <p className="text-xs font-semibold">Keep it up!</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Health News */}
+        <div className="bg-gradient-to-br from-lime-300 via-lime-400 to-lime-300 rounded-2xl p-8 shadow-lg">
+          <div className="flex items-center gap-2 mb-6">
+            <Radio size={24} className="text-gray-800" />
+            <h3 className="text-2xl font-bold text-gray-900">Latest Health News</h3>
+          </div>
+
+          {/* {loading && (
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-900 border-t-transparent"></div>
+              <p className="text-sm text-gray-700 mt-3">Fetching fresh health headlines...</p>
+            </div>
+          )} */}
+
+          <div className="space-y-4">
+            This is some static data for now
+            {/* {news.map((article, idx) => (
+              <NewsCard key={idx} article={article} index={idx} />
+            ))} */}
+          </div>
+        </div>
+
+      </div>
     </div>
-    // <div className="flex-1 overflow-auto bg-gradient-to-br from-lime-50 to-green-50 min-h-screen">
-    //   <div className="p-8 max-w-7xl mx-auto">
-
-    //     {/* Header */}
-    //     <div className="flex items-center justify-between mb-8">
-    //       <div>
-    //         <h2 className="text-3xl font-bold text-gray-900">My Health Dashboard</h2>
-    //         <p className="text-sm text-gray-600 mt-1">Track your wellness journey</p>
-    //       </div>
-    //       <button className="p-3 hover:bg-white/60 rounded-xl transition-colors backdrop-blur-sm">
-    //         <Menu size={24} className="text-gray-700" />
-    //       </button>
-    //     </div>
-
-    //     {/* Greeting + Wellness Cards */}
-    //     <div className="grid grid-cols-2 gap-6 mb-8">
-    //       <GreetingCard userName={demoUser.firstName} quote={randomQuote} />
-    //       <WellnessCard />
-    //     </div>
-
-    //     {/* Quick Stats */}
-    //     <div className="mb-8">
-    //       <QuickStats />
-    //     </div>
-
-    //     {/* Activity Suggestions + Health Tip */}
-    //     <div className="grid grid-cols-3 gap-6 mb-8">
-    //       <div className="col-span-2">
-    //         <ActivitySuggestions />
-    //       </div>
-    //       <div className="bg-gradient-to-br from-lime-400 to-green-400 rounded-2xl p-6 shadow-lg text-white">
-    //         <TrendingUp size={32} className="mb-3" />
-    //         <h4 className="text-lg font-bold mb-2">Weekly Progress</h4>
-    //         <p className="text-sm opacity-90 mb-4">You're 15% more active than last week! 🎉</p>
-    //         <div className="bg-white/30 rounded-lg p-3 backdrop-blur-sm">
-    //           <p className="text-xs font-semibold">Keep it up!</p>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     {/* Health News */}
-    //     <div className="bg-gradient-to-br from-lime-300 via-lime-400 to-lime-300 rounded-2xl p-8 shadow-lg">
-    //       <div className="flex items-center gap-2 mb-6">
-    //         <Radio size={24} className="text-gray-800" />
-    //         <h3 className="text-2xl font-bold text-gray-900">Latest Health News</h3>
-    //       </div>
-
-    //       {loading && (
-    //         <div className="text-center py-8">
-    //           <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-900 border-t-transparent"></div>
-    //           <p className="text-sm text-gray-700 mt-3">Fetching fresh health headlines...</p>
-    //         </div>
-    //       )}
-
-    //       <div className="space-y-4">
-    //         {news.map((article, idx) => (
-    //           <NewsCard key={idx} article={article} index={idx} />
-    //         ))}
-    //       </div>
-    //     </div>
-
-    //   </div>
-    // </div>
   );
 }

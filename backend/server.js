@@ -1,3 +1,4 @@
+
 import express, { urlencoded } from "express";
 import "dotenv/config"
 import cors from "cors";
@@ -32,8 +33,12 @@ io.on("connection", (socket) => {
   console.log("🔌 A user connected:", socket.id);
 });
 
+import dns from "dns";
+dns.setServers(['8.8.8.8']);
 const Connectmongo = async () => {
   try {
+    console.log("trying to connect mongo");
+
     await mongoose.connect(process.env.MONGODB_URI);
     console.log("MongoDB connected");
   } catch (error) {
